@@ -1,16 +1,16 @@
-package com.example.sharecollect.ui.notifications;
+package com.example.sharecollect.ui.collections;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class CollectionsViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public CollectionsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is notifications fragment");
+        mText.setValue("This is collections fragment");
     }
 
     public LiveData<String> getText() {
