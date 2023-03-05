@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    #Global
+    <string name="app_name">Sharecollect</string>
+
+    <string name="title_home">Accueil</string>
+    <string name="title_search">Chercher</string>
+    <string name="title_collections">Collections</string>
+    <string name="title_friends">Amis</string>
+    <string name="title_profile">Profil</string>
+
+    <string name="desc_sharecollect_logo">logo Sharecollect</string>
+
+    #Login/Register activity
+    <string name="pseudo">Pseudo</string>
+    <string name="email">Email</string>
+    <string name="password">Mot de passe</string>
+    <string name="password_confirm">Confirmer le mot de passe</string>
+    <string name="login">Connexion</string>
+    <string name="register">S\'inscrire</string>
+
+    <string name="desc_back_button">Bouton retour</string>
+</resources>

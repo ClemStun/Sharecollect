@@ -1,8 +1,23 @@
 <resources>
+
+    #Global
     <string name="app_name">Sharecollect</string>
+
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_collections">Collections</string>
     <string name="title_friends">Friends</string>
     <string name="title_profile">Profile</string>
+
+    <string name="desc_sharecollect_logo">Sharecollect logo</string>
+
+    # Login/Register activity
+    <string name="pseudo">Pseudo</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Confirm password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <string name="desc_back_button">Back button</string>
 </resources>
