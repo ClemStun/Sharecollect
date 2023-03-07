@@ -5,4 +5,5 @@
     <color name="medium_light_blue">#6E9CE4</color>
     <color name="light_blue">#82B1EF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="error_color">#FF0000</color>
 </resources>

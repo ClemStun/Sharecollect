@@ -28,32 +28,42 @@
             android:layout_gravity="center"
             />
 
+        <TextView
+            android:id="@+id/textViewErrorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/error_color"
+            android:visibility="gone" />
+
         <EditText
             android:id="@+id/editTextPseudo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/pseudo"
-            android:autofillHints="pseudo"
+            android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_gravity="center"
-            />
+            android:autofillHints="pseudo"
+            android:ems="10"
+            android:hint="@string/pseudo"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:hint="@string/password"
-            android:autofillHints="password"
-            android:layout_marginTop="50dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_gravity="center"
-            />
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="20dp"
+            android:autofillHints="password"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
 
         <Button
             android:id="@+id/login_btn"

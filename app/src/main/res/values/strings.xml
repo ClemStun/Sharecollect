@@ -18,6 +18,7 @@
     <string name="password_confirm">Confirm password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="creation_failed">Creation failed</string>
 
     <string name="desc_back_button">Back button</string>
 </resources>

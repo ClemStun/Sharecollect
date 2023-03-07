@@ -18,6 +18,7 @@
     <string name="password_confirm">Confirmer le mot de passe</string>
     <string name="login">Connexion</string>
     <string name="register">S\'inscrire</string>
+    <string name="creation_failed">Création échouée</string>
 
     <string name="desc_back_button">Bouton retour</string>
 </resources>

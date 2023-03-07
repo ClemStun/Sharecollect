@@ -15,7 +15,7 @@
         tools:layout_editor_absoluteY="1dp">
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/imageButtonBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -28,7 +28,7 @@
             />
 
         <ImageView
-            android:id="@+id/shc_logo"
+            android:id="@+id/imageViewShcLogo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -40,6 +40,16 @@
             android:contentDescription="@string/desc_sharecollect_logo"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/sharecollect_logo" />
+
+        <TextView
+            android:id="@+id/textViewErrorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textColor="@color/error_color"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/editTextPseudo"
@@ -93,7 +103,7 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/register_btn"
+            android:id="@+id/buttonRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"

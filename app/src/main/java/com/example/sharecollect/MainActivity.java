@@ -34,4 +34,21 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    /*@Override
+    public void onBackPressed() {
+        // Récupérer l'activité appelante
+        ComponentName callingActivity = getCallingActivity();
+
+        // Vérifier si l'activité appelante est celle souhaitée
+        if (callingActivity != null && callingActivity.getClassName().equals(LoginActivity.class.getName())) {
+            // Fermer l'application si l'activité appelante est MainActivity
+            finishAffinity();
+        } else {
+            // Revenir à l'activité précédente si ce n'est pas MainActivity
+            super.onBackPressed();
+        }
+    }*/
+
+
+
 }
