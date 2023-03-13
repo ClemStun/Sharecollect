@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.sharecollect.HttpGetRequest;
+import com.example.sharecollect.MainActivity;
 import com.example.sharecollect.databinding.FragmentProfileBinding;
 import com.example.sharecollect.ui.profile.ProfileViewModel;
 
@@ -17,7 +19,7 @@ public class ProfileFragment extends Fragment {
 
         private FragmentProfileBinding binding;
 
-        public View onCreateView(@NonNull LayoutInflater inflater,
+    public View onCreateView(@NonNull LayoutInflater inflater,
                                 ViewGroup container, Bundle savedInstanceState) {
             ProfileViewModel profileViewModel =
                     new ViewModelProvider(this).get(ProfileViewModel.class);
@@ -25,8 +27,14 @@ public class ProfileFragment extends Fragment {
             binding = FragmentProfileBinding.inflate(inflater, container, false);
             View root = binding.getRoot();
 
-            final TextView textView = binding.textProfile;
-            profileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        MainActivity mainActivity = (MainActivity) getActivity();
+
+            HttpGetRequest getRequest = new HttpGetRequest();
+            String pseudo = getRequest.getUser(mainActivity.getId(), mainActivity.getToken());
+
+            final TextView tvPseudo = binding.textViewPseudo;
+            profileViewModel.setText(pseudo);
+            profileViewModel.getText().observe(getViewLifecycleOwner(), tvPseudo::setText);
             return root;
         }
 

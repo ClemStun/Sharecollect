@@ -19,6 +19,12 @@
     <string name="login">Connexion</string>
     <string name="register">S\'inscrire</string>
     <string name="creation_failed">Création échouée</string>
+    <string name="show_hide_password">Afficher/Masquer le mot de passe</string>
 
     <string name="desc_back_button">Bouton retour</string>
+
+    #Profile activity
+    <string name="edit_profile">Modifier le profil</string>
+    <string name="desc_profile_picture">Photo de profil</string>
+    <string name="desc_edit_profile_button">Bouton modifier le profil</string>
 </resources>

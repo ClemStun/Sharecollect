@@ -64,13 +64,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(checkFields()) {
 
-            String returnState = httpGetRequest.createUser(etPseudo.getText().toString(), etEmail.getText().toString(), etPassword.getText().toString());
+            String returnState = httpGetRequest.createUser(etPseudo.getText().toString().trim(),
+                    etEmail.getText().toString().trim(),
+                    etPassword.getText().toString().trim());
 
             if (returnState.equals("User created")) {
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
-            } else {
-                tvError.setText(getString(R.string.creation_failed));
+            } else if(returnState.equals("User already exists")) {
+                tvError.setText("User already exists");
+                tvError.setVisibility(View.VISIBLE);
+            } else if(returnState.equals("Network error")){
+                tvError.setText("Network error");
                 tvError.setVisibility(View.VISIBLE);
             }
         }
@@ -112,4 +117,25 @@ public class RegisterActivity extends AppCompatActivity {
 
         return true;
     }
+
+    /**
+     * Show/Hide password or confirm password when clicking on the eye icon
+     * @param view : view
+     */
+    public void showHidePasswordOnClick(View view) {
+        if (view.getId() == R.id.imageButtonPwdEye) {
+            if (etPassword.getInputType() == 129) {
+                etPassword.setInputType(1);
+            } else {
+                etPassword.setInputType(129);
+            }
+        } else if (view.getId() == R.id.imageButtonConfirmPwdEye) {
+            if (etPasswordConfirm.getInputType() == 129) {
+                etPasswordConfirm.setInputType(1);
+            } else {
+                etPasswordConfirm.setInputType(129);
+            }
+        }
+    }
+
 }

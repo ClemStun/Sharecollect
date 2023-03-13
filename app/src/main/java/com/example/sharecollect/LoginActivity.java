@@ -53,30 +53,35 @@ public class LoginActivity extends AppCompatActivity {
      * @param view : view
      */
     public void onClickLogin(View view){
-        String id = "";
-        String token = "";
+        String id;
+        String token;
 
         HttpGetRequest httpGetRequest = new HttpGetRequest();
 
         if(checkFields()){
-            String returnState = httpGetRequest.connectUser(etPseudo.getText().toString(), etPassword.getText().toString());
+            String returnState = httpGetRequest.connectUser(etPseudo.getText().toString().trim(),
+                    etPassword.getText().toString().trim());
 
-            if(returnState.contains("token")) {
+            if(returnState.contains("User not found")) {
+
+                tvError.setText("Pseudo or password is incorrect");
+                tvError.setVisibility(View.VISIBLE);
+            } else if(returnState.contains("Network error")) {
+
+                tvError.setText("Network error");
+                tvError.setVisibility(View.VISIBLE);
+            } else {
 
                 // Extract id and token from returnState
                 String[] splitReturnState = returnState.split(",");
                 id = splitReturnState[0].split(":")[1];
-                token = splitReturnState[1].split(":")[1].replace("\"", "");
+                token = splitReturnState[1].split(":")[1];
+
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("id", id);
+                intent.putExtra("token", token);
+                startActivity(intent);
             }
-        }
-        if(!id.isEmpty() && !token.isEmpty()){
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("id", id);
-            intent.putExtra("token", token);
-            startActivity(intent);
-        } else{
-            tvError.setText("Pseudo or password is incorrect");
-            tvError.setVisibility(View.VISIBLE);
         }
     }
 
@@ -109,5 +114,19 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    /**
+     * Show/Hide password when clicking on the eye icon
+     * @param view : view
+     */
+    public void showHidePasswordOnClick(View view) {
+        if (view.getId() == R.id.imageButtonPwdEye) {
+            if (etPassword.getInputType() == 129) {
+                etPassword.setInputType(1);
+            } else {
+                etPassword.setInputType(129);
+            }
+        }
     }
 }

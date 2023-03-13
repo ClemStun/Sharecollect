@@ -1,5 +1,7 @@
 package com.example.sharecollect;
 
+import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -48,7 +50,9 @@ public class HttpGetRequest {
             return "Network error";
         }
 
-        if (httpRequestThread.getRequestResult().contains("valid\":true"))
+        HashMap<String, String> response = response2HashMap(httpRequestThread.getRequestResult());
+
+        if (Objects.equals(response.get("valid"), "true"))
             return "User created";
         else
             return "User already exists";
@@ -80,10 +84,67 @@ public class HttpGetRequest {
             return "Network error";
         }
 
-        String[] result = httpRequestThread.getRequestResult().split(",");
-        if (result[0].contains("valid\":true"))
-            return result[2] + "," + result[3];
+        HashMap<String, String> response = response2HashMap(httpRequestThread.getRequestResult());
+
+        if (Objects.equals(response.get("valid"), "true"))
+            return "id:" + response.get("id") + ",token:" + response.get("token");
         else
             return "User not found";
+    }
+
+    /**
+     * Allows to get a user's information
+     * using an asynchronous HTTP GET request
+     * @param id : user's id
+     * @param token : user's token
+     * @return String containing the user's information or an error message
+     */
+    public String getUser(String id, String token) {
+        String urlString = "http://34.22.199.112/user/profil/" +
+                id +
+                "?" +
+                token;
+
+        // Thread creation
+        HttpRequestThread httpRequestThread = new HttpRequestThread(urlString);
+
+        // Thread execution
+        Future<?> future = executorService.submit(httpRequestThread);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            return "Network error";
+        }
+
+        HashMap<String, String> response = response2HashMap(httpRequestThread.getRequestResult());
+
+        if (Objects.equals(response.get("valid"), "true"))
+            return response.get("username");
+        else
+            return "User doesn't exist";
+    }
+
+    /**
+     * Allows to convert a response from a HTTP GET request
+     * to a HashMap
+     * @param response : response from a HTTP GET request
+     * @return HashMap containing the response elements
+     */
+    private HashMap<String, String> response2HashMap(String response) {
+        response = response.replaceAll("\"", "")
+                .replaceAll("\\{", "")
+                .replaceAll("\\}", "");
+
+        String[] result = response.split(",");
+
+        HashMap<String, String> hashMap = new HashMap<>();
+        for (String s : result) {
+            String[] keyValue = s.split(":");
+            hashMap.put(keyValue[0], keyValue[1]);
+        }
+
+        return hashMap;
     }
 }

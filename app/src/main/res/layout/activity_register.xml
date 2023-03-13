@@ -76,31 +76,71 @@
             android:hint="@string/email"
             android:inputType="textEmailAddress" />
 
-        <EditText
-            android:id="@+id/editTextPassword"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
             android:layout_marginRight="20dp"
-            android:autofillHints="password"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+            android:layout_marginTop="50dp">
 
-        <EditText
-            android:id="@+id/editTextPasswordConfirm"
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:autofillHints="password"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="48dp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonPwdEye"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_pwd_eye"
+                android:contentDescription="@string/show_hide_password"
+                android:onClick="showHidePasswordOnClick"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
             android:layout_marginRight="20dp"
-            android:autofillHints="password"
-            android:ems="10"
-            android:hint="@string/password_confirm"
-            android:inputType="textPassword" />
+            android:layout_marginTop="50dp">
+
+            <EditText
+                android:id="@+id/editTextPasswordConfirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:autofillHints="Confirm password"
+                android:ems="10"
+                android:hint="@string/password_confirm"
+                android:inputType="textPassword"
+                android:minHeight="48dp"
+                android:paddingStart="5dp"
+                android:paddingEnd="48dp" />
+
+            <ImageButton
+                android:id="@+id/imageButtonConfirmPwdEye"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/ic_pwd_eye"
+                android:contentDescription="@string/show_hide_password"
+                android:onClick="showHidePasswordOnClick"
+                />
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/buttonRegister"

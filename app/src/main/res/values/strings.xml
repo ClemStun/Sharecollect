@@ -19,6 +19,12 @@
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="creation_failed">Creation failed</string>
+    <string name="show_hide_password">Show/Hide password</string>
 
     <string name="desc_back_button">Back button</string>
+
+    # Profile activity
+    <string name="edit_profile">Edit profile</string>
+    <string name="desc_profile_picture">Profile picture</string>
+    <string name="desc_edit_profile_button">Edit profile button</string>
 </resources>
