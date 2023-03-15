@@ -1,7 +1,10 @@
 package com.example.sharecollect;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.example.sharecollect.ui.collections.CollectionCreateActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,8 +34,12 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_friends, R.id.navigation_profile)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+    }
+
+    public void createCollection(View view) {
+        Intent intent = new Intent(this, CollectionCreateActivity.class);
+        startActivity(intent);
     }
 
 }

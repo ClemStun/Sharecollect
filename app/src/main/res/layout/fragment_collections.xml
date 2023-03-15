@@ -12,10 +12,13 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:src="@android:drawable/ic_input_add"
+        android:onClick="createCollection"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85" />
+        app:layout_constraintVertical_bias="0.85"
+        android:contentDescription="@string/create_button" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
