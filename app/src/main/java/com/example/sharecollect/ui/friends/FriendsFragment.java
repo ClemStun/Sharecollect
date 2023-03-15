@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sharecollect.databinding.FragmentFriendsBinding;
-import com.example.sharecollect.ui.friends.FriendsViewModel;
 
 public class FriendsFragment extends Fragment {
 

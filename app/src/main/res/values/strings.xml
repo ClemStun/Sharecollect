@@ -1,14 +1,52 @@
 <resources>
+
+    #Global
     <string name="app_name">Sharecollect</string>
+
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_collections">Collections</string>
     <string name="title_friends">Friends</string>
     <string name="title_profile">Profile</string>
+
+    <string name="desc_sharecollect_logo">Sharecollect logo</string>
+
+    # Login/Register activity
+    <string name="pseudo">Pseudo</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="password_confirm">Confirm password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+
+    <string name="creation_failed">Creation failed</string>
+    <string name="user_already_exists">User already exists</string>
+    <string name="user_not_found">User not found</string>
+    <string name="user_created">User created</string>
+
+    <string name="pseudo_required">Pseudo required</string>
+    <string name="pwd_required">Password required</string>
+    <string name="email_required">Email required</string>
+    <string name="pwd_confirm_required">Password confirmation required</string>
+    <string name="pwd_confirm_not_match">Passwords do not match</string>
+
+    <string name="desc_back_button">Back button</string>
+    <string name="desc_show_hide_password">Show/Hide password</string>
+
+    # Collection activity
+
     <string name="create_button">New</string>
     <string name="create_collection_title">Create a collection</string>
     <string name="next">Next</string>
     <string name="description">Description</string>
     <string name="title_activity_item_create">ItemCreateActivity</string>
     <string name="add_item">Add a new item</string>
+
+    # Profile activity
+    <string name="edit_profile">Edit profile</string>
+    <string name="desc_profile_picture">Profile picture</string>
+    <string name="desc_edit_profile_button">Edit profile button</string>
+
+    # Http Requests
+    <string name="network_error">Network error</string>
 </resources>
