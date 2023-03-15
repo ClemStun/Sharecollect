@@ -33,6 +33,15 @@
     <string name="desc_back_button">Back button</string>
     <string name="desc_show_hide_password">Show/Hide password</string>
 
+    # Collection activity
+
+    <string name="create_button">New</string>
+    <string name="create_collection_title">Create a collection</string>
+    <string name="next">Next</string>
+    <string name="description">Description</string>
+    <string name="title_activity_item_create">ItemCreateActivity</string>
+    <string name="add_item">Add a new item</string>
+
     # Profile activity
     <string name="edit_profile">Edit profile</string>
     <string name="desc_profile_picture">Profile picture</string>
