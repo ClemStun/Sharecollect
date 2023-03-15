@@ -11,6 +11,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText etPseudo;
@@ -64,18 +66,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         if(checkFields()) {
 
-            String returnState = httpGetRequest.createUser(etPseudo.getText().toString().trim(),
+            HashMap<String, Object> response = httpGetRequest.createUser(etPseudo.getText().toString().trim(),
                     etEmail.getText().toString().trim(),
                     etPassword.getText().toString().trim());
 
-            if (returnState.equals("User created")) {
+            if (response.get("User").equals(getString(R.string.user_created))) {
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
-            } else if(returnState.equals("User already exists")) {
-                tvError.setText("User already exists");
+            } else if(response.get("error").equals(getString(R.string.user_already_exists))) {
+                tvError.setText(getString(R.string.user_already_exists));
                 tvError.setVisibility(View.VISIBLE);
-            } else if(returnState.equals("Network error")){
-                tvError.setText("Network error");
+            } else if(response.get("error").equals(getString(R.string.network_error))){
+                tvError.setText(getString(R.string.network_error));
                 tvError.setVisibility(View.VISIBLE);
             }
         }
@@ -94,23 +96,23 @@ public class RegisterActivity extends AppCompatActivity {
         String passwordConfirm = etPasswordConfirm.getText().toString();
 
         if(pseudo.isEmpty()){
-            etPseudo.setError("Pseudo is required");
+            etPseudo.setError(getString(R.string.pseudo_required));
             etPseudo.requestFocus();
             return false;
         } else if(email.isEmpty()){
-            etEmail.setError("Email is required");
+            etEmail.setError(getString(R.string.email_required));
             etEmail.requestFocus();
             return false;
         } else if(password.isEmpty()){
-            etPassword.setError("Password is required");
+            etPassword.setError(getString(R.string.pwd_required));
             etPassword.requestFocus();
             return false;
         } else if(passwordConfirm.isEmpty()){
-            etPasswordConfirm.setError("Password confirmation is required");
+            etPasswordConfirm.setError(getString(R.string.pwd_confirm_required));
             etPasswordConfirm.requestFocus();
             return false;
         } else if(!password.equals(passwordConfirm)) {
-            etPasswordConfirm.setError("Passwords do not match");
+            etPasswordConfirm.setError(getString(R.string.pwd_confirm_not_match));
             etPasswordConfirm.requestFocus();
             return false;
         }

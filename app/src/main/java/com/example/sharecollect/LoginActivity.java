@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etPseudo;
@@ -53,33 +55,25 @@ public class LoginActivity extends AppCompatActivity {
      * @param view : view
      */
     public void onClickLogin(View view){
-        String id;
-        String token;
 
         HttpGetRequest httpGetRequest = new HttpGetRequest();
 
         if(checkFields()){
-            String returnState = httpGetRequest.connectUser(etPseudo.getText().toString().trim(),
+            HashMap<String, Object> response = httpGetRequest.connectUser(etPseudo.getText().toString().trim(),
                     etPassword.getText().toString().trim());
 
-            if(returnState.contains("User not found")) {
+            if(response.get("error").equals(getString(R.string.user_not_found))) {
 
-                tvError.setText("Pseudo or password is incorrect");
+                tvError.setText(getString(R.string.user_not_found));
                 tvError.setVisibility(View.VISIBLE);
-            } else if(returnState.contains("Network error")) {
+            } else if(response.get("error").equals(getString(R.string.network_error))) {
 
-                tvError.setText("Network error");
+                tvError.setText(getString(R.string.network_error));
                 tvError.setVisibility(View.VISIBLE);
             } else {
-
-                // Extract id and token from returnState
-                String[] splitReturnState = returnState.split(",");
-                id = splitReturnState[0].split(":")[1];
-                token = splitReturnState[1].split(":")[1];
-
                 Intent intent = new Intent(this, MainActivity.class);
-                intent.putExtra("id", id);
-                intent.putExtra("token", token);
+                intent.putExtra("id", (String) response.get("id"));
+                intent.putExtra("token", (String) response.get("token"));
                 startActivity(intent);
             }
         }
@@ -104,11 +98,11 @@ public class LoginActivity extends AppCompatActivity {
         String password = etPassword.getText().toString();
 
         if(pseudo.isEmpty()){
-            etPseudo.setError("Pseudo is required");
+            etPseudo.setError(getString(R.string.pseudo_required));
             etPseudo.requestFocus();
             return false;
         } else if(password.isEmpty()){
-            etPassword.setError("Password is required");
+            etPassword.setError(getString(R.string.pwd_required));
             etPassword.requestFocus();
             return false;
         }

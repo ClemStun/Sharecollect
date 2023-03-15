@@ -17,7 +17,7 @@
             android:id="@+id/imageViewProfilePicture"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:src="@drawable/sharecollect_logo"
+            android:src="@drawable/ic_profile_black_24dp"
             android:contentDescription="@string/desc_profile_picture"
             android:background="@drawable/circle_profile_picture"/>
 
@@ -29,7 +29,8 @@
             android:layout_marginTop="20dp"
             android:text=""
             android:textSize="24sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
 
         <!-- Adresse mail -->
         <TextView
@@ -37,8 +38,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="john.doe@example.com"
-            android:textSize="18sp"/>
+            android:text=""
+            android:textSize="18sp"
+            android:textColor="@color/black"/>
 
         <!-- Bouton pour modifier les informations -->
         <Button

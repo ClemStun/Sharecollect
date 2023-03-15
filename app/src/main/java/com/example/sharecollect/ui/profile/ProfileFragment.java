@@ -8,12 +8,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sharecollect.HttpGetRequest;
 import com.example.sharecollect.MainActivity;
 import com.example.sharecollect.databinding.FragmentProfileBinding;
-import com.example.sharecollect.ui.profile.ProfileViewModel;
+
+import java.util.HashMap;
 
 public class ProfileFragment extends Fragment {
 
@@ -21,8 +21,6 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                                 ViewGroup container, Bundle savedInstanceState) {
-            ProfileViewModel profileViewModel =
-                    new ViewModelProvider(this).get(ProfileViewModel.class);
 
             binding = FragmentProfileBinding.inflate(inflater, container, false);
             View root = binding.getRoot();
@@ -30,11 +28,15 @@ public class ProfileFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) getActivity();
 
             HttpGetRequest getRequest = new HttpGetRequest();
-            String pseudo = getRequest.getUser(mainActivity.getId(), mainActivity.getToken());
+            HashMap<String, Object> response = getRequest.getUser(mainActivity.getId(), mainActivity.getToken());
+
+            System.out.println(response);
 
             final TextView tvPseudo = binding.textViewPseudo;
-            profileViewModel.setText(pseudo);
-            profileViewModel.getText().observe(getViewLifecycleOwner(), tvPseudo::setText);
+            final TextView tvEmail = binding.textViewEmail;
+
+            tvPseudo.setText((String) response.get("username"));
+            tvEmail.setText((String) response.get("mail"));
             return root;
         }
 

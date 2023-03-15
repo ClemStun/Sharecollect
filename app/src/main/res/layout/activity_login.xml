@@ -78,7 +78,7 @@
                 android:layout_alignParentEnd="true"
                 android:background="@android:color/transparent"
                 app:srcCompat="@drawable/ic_pwd_eye"
-                android:contentDescription="@string/show_hide_password"
+                android:contentDescription="@string/desc_show_hide_password"
                 android:onClick="showHidePasswordOnClick"
                 />
 

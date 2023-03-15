@@ -29,13 +29,16 @@ public class HttpGetRequest {
      * @param password : user's password
      * @return true if the creation is a success, false otherwise
      */
-    public String createUser(String pseudo, String email, String password) {
+    public HashMap<String, Object> createUser(String pseudo, String email, String password) {
         String urlString = "http://34.22.199.112/user/create?username=" +
                 pseudo +
                 "&mail=" +
                 email +
                 "&password=" +
                 password;
+
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("error", "");
 
         // Thread creation
         HttpRequestThread httpRequestThread = new HttpRequestThread(urlString);
@@ -47,15 +50,20 @@ public class HttpGetRequest {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
             Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
-            return "Network error";
+            response.put("error", "Network error");
         }
 
-        HashMap<String, String> response = response2HashMap(httpRequestThread.getRequestResult());
+        if(response.get("error").equals("")) {
 
-        if (Objects.equals(response.get("valid"), "true"))
-            return "User created";
-        else
-            return "User already exists";
+            response.putAll(httpRequestThread.getRequestResult());
+
+            if (Objects.equals(response.get("valid"), "false"))
+                response.put("error", "User already exists");
+
+            response.put("User", "User created");
+        }
+
+        return response;
     }
 
     /**
@@ -65,11 +73,14 @@ public class HttpGetRequest {
      * @param password : user's password
      * @return true if the connection is a success, false otherwise
      */
-    public String connectUser(String pseudo, String password) {
+    public HashMap<String, Object> connectUser(String pseudo, String password) {
         String urlString = "http://34.22.199.112/user/login?username=" +
                 pseudo +
                 "&password=" +
                 password;
+
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("error", "");
 
         // Thread creation
         HttpRequestThread httpRequestThread = new HttpRequestThread(urlString);
@@ -81,15 +92,18 @@ public class HttpGetRequest {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
             Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
-            return "Network error";
+            response.put("error", "Network error");
         }
 
-        HashMap<String, String> response = response2HashMap(httpRequestThread.getRequestResult());
+        if (response.get("error").equals("")) {
 
-        if (Objects.equals(response.get("valid"), "true"))
-            return "id:" + response.get("id") + ",token:" + response.get("token");
-        else
-            return "User not found";
+            response.putAll(httpRequestThread.getRequestResult());
+
+            if (Objects.equals(response.get("valid"), "false"))
+                response.put("error", "User not found");
+        }
+
+        return response;
     }
 
     /**
@@ -99,11 +113,15 @@ public class HttpGetRequest {
      * @param token : user's token
      * @return String containing the user's information or an error message
      */
-    public String getUser(String id, String token) {
+    public HashMap<String, Object> getUser(String id, String token) {
         String urlString = "http://34.22.199.112/user/profil/" +
                 id +
-                "?" +
+                "?token=" +
                 token;
+
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("error", "");
+
 
         // Thread creation
         HttpRequestThread httpRequestThread = new HttpRequestThread(urlString);
@@ -115,36 +133,17 @@ public class HttpGetRequest {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
             Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
-            return "Network error";
+            response.put("error", "Network error");
         }
 
-        HashMap<String, String> response = response2HashMap(httpRequestThread.getRequestResult());
+        if(response.get("error").equals("")) {
+            response.putAll(httpRequestThread.getRequestResult());
 
-        if (Objects.equals(response.get("valid"), "true"))
-            return response.get("username");
-        else
-            return "User doesn't exist";
-    }
 
-    /**
-     * Allows to convert a response from a HTTP GET request
-     * to a HashMap
-     * @param response : response from a HTTP GET request
-     * @return HashMap containing the response elements
-     */
-    private HashMap<String, String> response2HashMap(String response) {
-        response = response.replaceAll("\"", "")
-                .replaceAll("\\{", "")
-                .replaceAll("\\}", "");
-
-        String[] result = response.split(",");
-
-        HashMap<String, String> hashMap = new HashMap<>();
-        for (String s : result) {
-            String[] keyValue = s.split(":");
-            hashMap.put(keyValue[0], keyValue[1]);
+            if (Objects.equals(response.get("valid"), "false"))
+                response.put("error", "User not found");
         }
 
-        return hashMap;
+        return response;
     }
 }

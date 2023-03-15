@@ -2,25 +2,12 @@ package com.example.sharecollect;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.sharecollect.databinding.ActivityMainBinding;
-import com.example.sharecollect.ui.collections.CollectionsFragment;
-import com.example.sharecollect.ui.friends.FriendsFragment;
-import com.example.sharecollect.ui.home.HomeFragment;
-import com.example.sharecollect.ui.profile.ProfileFragment;
-import com.example.sharecollect.ui.search.SearchFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,8 +21,7 @@ public class MainActivity extends AppCompatActivity {
         com.example.sharecollect.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        ViewPager2 viewPager2 = findViewById(R.id.view_pager2);
+        //ViewPager2 viewPager2 = findViewById(R.id.view_pager2);
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupWithNavController(binding.navView, navController);

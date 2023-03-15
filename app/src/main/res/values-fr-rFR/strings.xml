@@ -18,13 +18,27 @@
     <string name="password_confirm">Confirmer le mot de passe</string>
     <string name="login">Connexion</string>
     <string name="register">S\'inscrire</string>
+
     <string name="creation_failed">Création échouée</string>
-    <string name="show_hide_password">Afficher/Masquer le mot de passe</string>
+    <string name="user_already_exists">L\'utilisateur existe déjà</string>
+    <string name="user_not_found">Utilisateur non trouvé</string>
+    <string name="user_created">Utilisateur créé</string>
+
+    <string name="pseudo_required">Pseudo requis</string>
+    <string name="pwd_required">Mot de passe requis</string>
+    <string name="email_required">Email requis</string>
+    <string name="pwd_confirm_required">Confirmation du mot de passe requise</string>
+    <string name="pwd_confirm_not_match">Les mots de passe ne correspondent pas</string>
 
     <string name="desc_back_button">Bouton retour</string>
+    <string name="desc_show_hide_password">Afficher/Masquer le mot de passe</string>
 
     #Profile activity
     <string name="edit_profile">Modifier le profil</string>
+
     <string name="desc_profile_picture">Photo de profil</string>
     <string name="desc_edit_profile_button">Bouton modifier le profil</string>
+
+    #Http Requests
+    <string name="network_error">Erreur réseau</string>
 </resources>
