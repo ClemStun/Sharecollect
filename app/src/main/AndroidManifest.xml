@@ -15,8 +15,7 @@
         <activity
             android:name=".ui.collections.ItemCreateActivity"
             android:exported="false"
-            android:label="@string/title_activity_item_create"
-            android:theme="@style/Theme.Sharecollect.NoActionBar" />
+            android:label="@string/title_activity_item_create" />
         <activity
             android:name=".ui.collections.CollectionCreateActivity"
             android:exported="false" />
