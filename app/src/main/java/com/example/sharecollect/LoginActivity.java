@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.models.User;
+import com.example.sharecollect.notification.MyFirebaseMessagingService;
 
 import java.util.HashMap;
 
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private Button btnRegister;
     private TextView tvError;
+    private UserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +85,12 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, MainActivity.class);
 
                 //Sotckage des données de l'utilisateur
-                UserController userController = UserController.getInstance();
+                userController = UserController.getInstance();
                 Log.println(Log.DEBUG, "LoginActivity", "User connected : " + response.get("username") + " " + response.get("mail") + " " + response.get("token"));
                 User user = new User(Integer.parseInt((String) response.get("id")), (String) response.get("username"), (String) response.get("mail"), (String) response.get("token"));
                 userController.setUser(user);
 
+                sendNotifToken();
                 startActivity(intent);
             }
         }
@@ -136,5 +139,11 @@ public class LoginActivity extends AppCompatActivity {
                 etPassword.setInputType(129);
             }
         }
+    }
+
+    private void sendNotifToken(){
+
+        HttpGetRequest.addNotifToken(Integer.toString(userController.getUser().getId()), MyFirebaseMessagingService.notificationToken);
+
     }
 }
