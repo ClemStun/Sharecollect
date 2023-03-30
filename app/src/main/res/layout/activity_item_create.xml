@@ -6,32 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".ui.collections.ItemCreateActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/collection_title_add_item"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:gravity="center_horizontal|center_vertical"
-            android:text="Collection Title"
-            android:textColor="#00BCD4"
-            android:textSize="24sp" />
-
-        <Button
-            android:id="@+id/add_new_item"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="15dp"
-            android:onClick="addItem"
-            android:text="@string/add_item" />
-    </LinearLayout>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/collection_title_add_item"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Collection Title"
+                android:textColor="#00BCD4"
+                android:textSize="24sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/itemsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="1dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <Button
+                android:id="@+id/add_new_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                android:onClick="addItem"
+                android:text="@string/add_item" />
+
+            <Button
+                android:id="@+id/valid_collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="15dp"
+                android:onClick="validCollection"
+                android:text="@string/valid_collection" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

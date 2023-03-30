@@ -1,19 +1,15 @@
 package com.example.sharecollect.ui.collections;
 
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+/**
+ * ViewModel for the collections.
+ * @author Hugo C.
+ * @version 1.0
+ * @since 2023-03-27
+ */
 public class CollectionsViewModel extends ViewModel {
 
-    private final MutableLiveData<String> mText;
-
     public CollectionsViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is collections fragment");
-    }
-
-    public LiveData<String> getText() {
-        return mText;
     }
 }

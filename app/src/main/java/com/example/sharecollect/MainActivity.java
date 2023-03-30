@@ -16,10 +16,20 @@ import com.example.sharecollect.ui.collections.CollectionCreateActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.HashMap;
+
+/**
+ * Main activity of the application
+ * It contains the navigation bar and the fragments
+ * It also contains the id and token of the user
+ * @author Hugo C. and Clement C.
+ * @version 1.0
+ * @since 2023-03-22
+ */
 public class MainActivity extends AppCompatActivity {
 
-    private String id;
-    private String token;
+    private User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
         // recover id and token from the login activity
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            id = extras.getString("id");
-            token = extras.getString("token");
+            HashMap<String, Object> response = HttpGetRequest.getUser(extras.getString("id"), extras.getString("token"));
+            user = new User(extras.getString("id"), extras.getString("token"), (String) response.get("username"), (String) response.get("mail"));
         }
 
         // Initialiser Firebase
@@ -55,16 +65,18 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
-    public String getId() {
-        return id;
+    
+    public User getUser() {
+        return user;
     }
 
-    public String getToken() {
-        return token;
-    }
-
+    /**
+     * Redirect to the collection creation activity
+     * @param view : view
+     */
     public void createCollection(View view) {
         Intent intent = new Intent(this, CollectionCreateActivity.class);
+        intent.putExtra("user", user);
         startActivity(intent);
     }
 

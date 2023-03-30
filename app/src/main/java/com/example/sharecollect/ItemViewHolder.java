@@ -5,13 +5,21 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * View holder for the items.
+ * @author Hugo C.
+ * @version 1.0
+ * @since 2023-03-27
+ */
 public class ItemViewHolder extends RecyclerView.ViewHolder {
-    public TextView title;
-    public TextView description;
+    private TextView name;
 
     public ItemViewHolder(View itemView) {
         super(itemView);
-        title = itemView.findViewById(R.id.textViewItemTitle);
-        description = itemView.findViewById(R.id.textViewItemDescription);
+        name = itemView.findViewById(R.id.textViewItemTitle);
+    }
+
+    public void bind(Item item) {
+        name.setText(item.getTitle());
     }
 }

@@ -18,6 +18,7 @@
     <string name="password_confirm">Confirm password</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="add_profile_picture">Add a profile picture</string>
 
     <string name="creation_failed">Creation failed</string>
     <string name="user_already_exists">User already exists</string>
@@ -30,17 +31,19 @@
     <string name="pwd_confirm_required">Password confirmation required</string>
     <string name="pwd_confirm_not_match">Passwords do not match</string>
 
-    <string name="desc_back_button">Back button</string>
+    <string name="desc_back_button">Back</string>
     <string name="desc_show_hide_password">Show/Hide password</string>
 
     # Collection activity
 
     <string name="create_button">New</string>
     <string name="create_collection_title">Create a collection</string>
-    <string name="next">Next</string>
+    <string name="title">Title</string>
     <string name="description">Description</string>
-    <string name="title_activity_item_create">ItemCreateActivity</string>
+    <string name="next">Next</string>
+    <string name="title_activity_item_create">Create item</string>
     <string name="add_item">Add a new item</string>
+    <string name="valid_collection">Validate collection</string>
 
     # Profile activity
     <string name="edit_profile">Edit profile</string>
