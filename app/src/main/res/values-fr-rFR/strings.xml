@@ -53,4 +53,9 @@
 
     #Http Requests
     <string name="network_error">Erreur réseau</string>
+
+    #FCM
+    <string name="msg_token_fmt">FCM token %s</string>
+    <string name="default_notification_channel_id">Sharecollect</string>
+
 </resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "545466894039",
+    "project_id": "sharecollect-40249",
+    "storage_bucket": "sharecollect-40249.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545466894039:android:21bebd5baf2b3437d91292",
+        "android_client_info": {
+          "package_name": "com.example.sharecollect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545466894039-15e2he0i6lvg33tmokdlvcjqcupkf662.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC24j_N3xmnnG-OU6mzVuWc-VL9FY4I5S0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545466894039-15e2he0i6lvg33tmokdlvcjqcupkf662.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

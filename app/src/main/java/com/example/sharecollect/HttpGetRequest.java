@@ -225,11 +225,11 @@ public class HttpGetRequest {
 
             if (Objects.equals(response.get("valid"), "false"))
                 response.put("error", "User not found");
+
         }
 
         return response;
     }
-
 
     /**
      * Allows to get a collection's information
@@ -388,4 +388,37 @@ public class HttpGetRequest {
         });
 
     }
+
+    public static HashMap<String, Object> addNotifToken(String id, String token) {
+        String urlString = "http://34.22.199.112/user/" +
+                id +
+                "/addnotiftoken?token=" +
+                token;
+                
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("error", "");
+                
+        HttpRequestThread httpRequestThread = new HttpRequestThread(urlString);
+
+        // Thread execution
+        Future<?> future = executorService.submit(httpRequestThread);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            response.put("error", "Network error");
+        }
+
+        if (response.get("error").equals("")) {
+            response.putAll(httpRequestThread.getRequestResult());
+
+            if (Objects.equals(response.get("valid"), "false"))
+                response.put("error", "Token not added");
+        }
+        
+        return response;    
+        
+   }
+
 }
