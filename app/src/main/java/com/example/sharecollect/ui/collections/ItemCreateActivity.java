@@ -1,6 +1,5 @@
 package com.example.sharecollect.ui.collections;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -16,12 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sharecollect.HttpGetRequest;
 import com.example.sharecollect.Item;
 import com.example.sharecollect.ItemAdapter;
-import com.example.sharecollect.MainActivity;
 import com.example.sharecollect.R;
-import com.example.sharecollect.User;
+import com.example.sharecollect.controllers.UserController;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,7 +29,7 @@ import java.util.List;
  */
 public class ItemCreateActivity extends AppCompatActivity {
 
-    private User user;
+    private UserController userController;
 
     // Popup window to add a new item
     private PopupWindow popupWindow;
@@ -48,7 +45,7 @@ public class ItemCreateActivity extends AppCompatActivity {
 
         TextView collectionTitle = findViewById(R.id.collection_title_add_item);
         collectionTitle.setText(getIntent().getStringExtra("title"));
-        user = (User) getIntent().getSerializableExtra("user");
+        userController = UserController.getInstance();
 
         itemList = new ArrayList<>();
 
@@ -105,7 +102,7 @@ public class ItemCreateActivity extends AppCompatActivity {
     }
 
     public void validCollection(View view) {
-        HttpGetRequest.createCollection(user.getId(), user.getToken(), getIntent().getStringExtra("title"), getIntent().getStringExtra("description"), itemList);
+        HttpGetRequest.createCollection(Integer.toString(userController.getUser().getId()), userController.getUser().getToken(), getIntent().getStringExtra("title"), getIntent().getStringExtra("description"), itemList);
         finish();
     }
 }

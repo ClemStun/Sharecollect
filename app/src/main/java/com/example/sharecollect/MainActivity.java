@@ -11,12 +11,11 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.databinding.ActivityMainBinding;
 import com.example.sharecollect.ui.collections.CollectionCreateActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.HashMap;
 
 /**
  * Main activity of the application
@@ -28,11 +27,13 @@ import java.util.HashMap;
  */
 public class MainActivity extends AppCompatActivity {
 
-    private User user;
+    private UserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        userController = UserController.getInstance();
 
         com.example.sharecollect.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -42,10 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         // recover id and token from the login activity
         Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            HashMap<String, Object> response = HttpGetRequest.getUser(extras.getString("id"), extras.getString("token"));
-            user = new User(extras.getString("id"), extras.getString("token"), (String) response.get("username"), (String) response.get("mail"));
-        }
 
         // Initialiser Firebase
         FirebaseApp.initializeApp(this);
@@ -65,10 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 });
 
     }
-    
-    public User getUser() {
-        return user;
-    }
 
     /**
      * Redirect to the collection creation activity
@@ -76,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
      */
     public void createCollection(View view) {
         Intent intent = new Intent(this, CollectionCreateActivity.class);
-        intent.putExtra("user", user);
         startActivity(intent);
     }
 

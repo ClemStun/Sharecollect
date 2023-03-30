@@ -398,7 +398,7 @@ public class HttpGetRequest {
         HashMap<String, Object> response = new HashMap<>();
         response.put("error", "");
                 
-        HttpRequestThread httpRequestThread = new HttpRequestThread(urlString);
+        HttpRequestThreadGet httpRequestThread = new HttpRequestThreadGet(urlString);
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThread);
