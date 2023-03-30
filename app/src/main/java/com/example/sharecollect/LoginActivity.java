@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -83,11 +84,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 //Sotckage des données de l'utilisateur
                 UserController userController = UserController.getInstance();
-                User user = new User(Integer.parseInt((String) response.get("id")), (String) response.get("pseudo"), (String) response.get("email"));
+                Log.println(Log.DEBUG, "LoginActivity", "User connected : " + response.get("username") + " " + response.get("mail") + " " + response.get("token"));
+                User user = new User(Integer.parseInt((String) response.get("id")), (String) response.get("username"), (String) response.get("mail"), (String) response.get("token"));
                 userController.setUser(user);
 
-                intent.putExtra("id", (String) response.get("id"));
-                intent.putExtra("token", (String) response.get("token"));
                 startActivity(intent);
             }
         }

@@ -1,6 +1,5 @@
 package com.example.sharecollect.ui.collections;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,7 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.sharecollect.R;
-import com.example.sharecollect.User;
+import com.example.sharecollect.controllers.UserController;
 
 /**
  * Activity to create a new collection.
@@ -19,14 +18,14 @@ import com.example.sharecollect.User;
  */
 public class CollectionCreateActivity extends AppCompatActivity {
 
-    private User user;
+    private UserController userController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collection_create);
 
-        user = (User) getIntent().getSerializableExtra("user");
+        userController = UserController.getInstance();
     }
 
     /**
@@ -41,7 +40,6 @@ public class CollectionCreateActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ItemCreateActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("description", description);
-        intent.putExtra("user", user);
         startActivity(intent);
         finish();
     }

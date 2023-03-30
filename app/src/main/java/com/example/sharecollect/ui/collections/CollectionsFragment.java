@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sharecollect.Collection;
 import com.example.sharecollect.HttpGetRequest;
 import com.example.sharecollect.CollectionAdapter;
-import com.example.sharecollect.MainActivity;
 import com.example.sharecollect.R;
+import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.databinding.FragmentCollectionsBinding;
 
 import java.util.ArrayList;
@@ -73,9 +73,7 @@ public class CollectionsFragment extends Fragment {
      * @param layoutManager : LayoutManager of the fragment
      */
     private void initCollectionList(RecyclerView collectionsRecyclerView, RecyclerView.LayoutManager layoutManager) {
-        MainActivity mainActivity = (MainActivity) getActivity();
-        assert mainActivity != null;
-        HashMap<String, Object> response = HttpGetRequest.getCollectionList(mainActivity.getUser().getId());
+        HashMap<String, Object> response = HttpGetRequest.getCollectionList(Integer.toString(UserController.getInstance().getUser().getId()));
 
         List<Collection> collectionsList = new ArrayList<>();
         HashMap<String, Object> collections = (HashMap<String, Object>) response.get("collection_id");

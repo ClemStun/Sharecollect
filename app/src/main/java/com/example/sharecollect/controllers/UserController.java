@@ -1,9 +1,10 @@
 package com.example.sharecollect.controllers;
 
-import com.example.sharecollect.models.Collection;
 import com.example.sharecollect.models.User;
 
-public class UserController {
+import java.io.Serializable;
+
+public class UserController implements Serializable {
 
     private static UserController instance;
 
