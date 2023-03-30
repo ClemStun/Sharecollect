@@ -1,19 +1,23 @@
 package com.example.sharecollect;
 
+/**
+ * Represents an item
+ * @author Hugo C.
+ * @version 1.0
+ * @since 2023-03-27
+ */
 public class Item {
     private String title;
-    private String description;
 
-    public Item(String title, String description) {
+    public Item(String title) {
         this.title = title;
-        this.description = description;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getDescription() {
-        return description;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

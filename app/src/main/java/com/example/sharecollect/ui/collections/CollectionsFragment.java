@@ -1,5 +1,6 @@
 package com.example.sharecollect.ui.collections;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,43 +14,92 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sharecollect.Item;
-import com.example.sharecollect.ItemAdapter;
+import com.example.sharecollect.Collection;
+import com.example.sharecollect.HttpGetRequest;
+import com.example.sharecollect.CollectionAdapter;
+import com.example.sharecollect.MainActivity;
 import com.example.sharecollect.R;
 import com.example.sharecollect.databinding.FragmentCollectionsBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Fragment to display the list of collections.
+ * @author Hugo C. and Clement C.
+ * @version 1.0
+ * @since 2023-03-27
+ */
 public class CollectionsFragment extends Fragment {
 
     private FragmentCollectionsBinding binding;
-    private ItemAdapter itemAdapter;
+    private CollectionAdapter collectionAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        // Retrieve the ViewModel
         CollectionsViewModel collectionsViewModel =
                 new ViewModelProvider(this).get(CollectionsViewModel.class);
 
+        // Inflate the layout for this fragment and get the root view
         binding = FragmentCollectionsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Set the RecyclerView
         RecyclerView collectionsRecyclerView = binding.collectionsRecyclerView;
         collectionsRecyclerView.setHasFixedSize(true);
 
+        // Set the layout manager with root context
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(root.getContext());
 
-        //Example of set of items
-        List<Item> itemList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            itemList.add(new Item("Item " + i, "Description " + i));
+        // Initialize the list of collections in the fragment
+        initCollectionList(collectionsRecyclerView, layoutManager);
+
+        return root;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
+
+    /**
+     * Allows to initialize the list of collections in the fragment
+     * and set drag and drop functionality between collections
+     * @param collectionsRecyclerView : RecyclerView of the fragment
+     * @param layoutManager : LayoutManager of the fragment
+     */
+    private void initCollectionList(RecyclerView collectionsRecyclerView, RecyclerView.LayoutManager layoutManager) {
+        MainActivity mainActivity = (MainActivity) getActivity();
+        assert mainActivity != null;
+        HashMap<String, Object> response = HttpGetRequest.getCollectionList(mainActivity.getUser().getId());
+
+        List<Collection> collectionsList = new ArrayList<>();
+        HashMap<String, Object> collections = (HashMap<String, Object>) response.get("collection_id");
+
+        if(collections == null) {
+            collections = new HashMap<>();
+        }
+        else {
+            // For each collection, get the information and add it to the list
+            for (int i = 0; i < collections.size(); i++) {
+                HashMap<String, Object> collection = (HashMap<String, Object>) collections.get(String.valueOf(i));
+                assert collection != null;
+                HashMap<String, Object> collectionInfo = HttpGetRequest.getCollectionInformation((String) collection.get("collection_id"));
+                collectionsList.add(new Collection((String) collectionInfo.get("username"), (String) collectionInfo.get("title"), (String) collectionInfo.get("description")));
+            }
         }
 
-        itemAdapter = new ItemAdapter(itemList);
+        // Fill collectionAdapter with the list of collections
+        collectionAdapter = new CollectionAdapter(collectionsList);
 
         collectionsRecyclerView.setLayoutManager(layoutManager);
-        collectionsRecyclerView.setAdapter(itemAdapter);
+        collectionsRecyclerView.setAdapter(collectionAdapter);
 
+        // Set drag and drop functionality between collections
         ItemTouchHelper.Callback callback = new ItemTouchHelper.Callback() {
             @Override
             public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
@@ -62,7 +112,7 @@ public class CollectionsFragment extends Fragment {
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
-                itemAdapter.moveItem(fromPosition, toPosition);
+                collectionAdapter.moveItem(fromPosition, toPosition);
                 return true;
             }
 
@@ -71,14 +121,15 @@ public class CollectionsFragment extends Fragment {
                 super.onSelectedChanged(viewHolder, actionState);
 
                 if (actionState == ItemTouchHelper.ACTION_STATE_DRAG) {
-                    viewHolder.itemView.setBackgroundResource(R.drawable.item_border_selected);
+                    assert viewHolder != null;
+                    viewHolder.itemView.setBackgroundResource(R.drawable.collection_area_selected);
                 }
             }
 
             @Override
             public void clearView(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
                 super.clearView(recyclerView, viewHolder);
-                viewHolder.itemView.setBackgroundResource(R.drawable.item_border);
+                viewHolder.itemView.setBackgroundResource(R.drawable.collection_area);
             }
 
             @Override
@@ -89,13 +140,5 @@ public class CollectionsFragment extends Fragment {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(collectionsRecyclerView);
-
-        return root;
     }
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
 }

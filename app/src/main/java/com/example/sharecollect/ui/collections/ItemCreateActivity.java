@@ -1,10 +1,7 @@
 package com.example.sharecollect.ui.collections;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
@@ -12,43 +9,103 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.example.sharecollect.R;
-import com.example.sharecollect.controllers.CollectionController;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sharecollect.HttpGetRequest;
+import com.example.sharecollect.Item;
+import com.example.sharecollect.ItemAdapter;
+import com.example.sharecollect.MainActivity;
+import com.example.sharecollect.R;
+import com.example.sharecollect.User;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * Activity to create a new item list.
+ * @author Hugo C. and Clement C.
+ * @version 1.0
+ * @since 2023-03-27
+ */
 public class ItemCreateActivity extends AppCompatActivity {
 
+    private User user;
+
+    // Popup window to add a new item
     private PopupWindow popupWindow;
 
-    private EditText item_name_edit;
+    private EditText newItemTitle;
 
-    private CollectionController collectionController;
+    private List<Item> itemList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_create);
 
-        collectionController = CollectionController.getInstance();
-
         TextView collectionTitle = findViewById(R.id.collection_title_add_item);
-        collectionTitle.setText(collectionController.getNewCollection().getName());
+        collectionTitle.setText(getIntent().getStringExtra("title"));
+        user = (User) getIntent().getSerializableExtra("user");
+
+        itemList = new ArrayList<>();
+
+        // Set the RecyclerView
+        RecyclerView itemsRecyclerView = findViewById(R.id.itemsRecyclerView);
+        itemsRecyclerView.setHasFixedSize(true);
+
+        // Set the layout manager with root context
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+
+        // Initialize the list of items in the fragment
+        initItemList(itemsRecyclerView, layoutManager);
     }
 
+    /**
+     * Click on the button to add a new item and display the popup window
+     * to add the item.
+     * @param view The view
+     */
     public void addItem(View view){
 
         final View popupView = getLayoutInflater().inflate(R.layout.popup_add_item, null);
 
-        item_name_edit = (EditText) popupView.findViewById(R.id.item_name);
+        newItemTitle = popupView.findViewById(R.id.editTextNewItemTitle);
 
         popupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
     }
 
+    /**
+     * Add the item to the list of items
+     * and close the popup window.
+     * Refresh the RecyclerView.
+     * @param view The view
+     */
     public void addItemPopup(View view){
-
-        String item_name = item_name_edit.getText().toString();
-        Log.println(Log.DEBUG, "Item name", item_name);
+        String item_name = newItemTitle.getText().toString();
+        itemList.add(new Item(item_name));
         popupWindow.dismiss();
 
+        RecyclerView itemsRecyclerView = findViewById(R.id.itemsRecyclerView);
+        itemsRecyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    /**
+     * Initialize the adapter with the list of items.
+     * @param recyclerView The RecyclerView
+     * @param layoutManager The layout manager
+     */
+    public void initItemList(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager){
+        recyclerView.setLayoutManager(layoutManager);
+        ItemAdapter itemAdapter = new ItemAdapter(itemList);
+        recyclerView.setAdapter(itemAdapter);
+    }
+
+    public void validCollection(View view) {
+        HttpGetRequest.createCollection(user.getId(), user.getToken(), getIntent().getStringExtra("title"), getIntent().getStringExtra("description"), itemList);
+        finish();
     }
 }

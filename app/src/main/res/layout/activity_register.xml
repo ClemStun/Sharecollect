@@ -33,9 +33,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="25dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="75dp"
+            android:layout_marginBottom="25dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/desc_sharecollect_logo"
             android:scaleType="centerCrop"
@@ -141,6 +141,17 @@
                 />
 
         </RelativeLayout>
+
+        <Button
+            android:id="@+id/buttonProfilePicture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="20dp"
+            android:background="#4873CF"
+            android:text="@string/add_profile_picture"
+            app:backgroundTint="@null" />
 
         <Button
             android:id="@+id/buttonRegister"

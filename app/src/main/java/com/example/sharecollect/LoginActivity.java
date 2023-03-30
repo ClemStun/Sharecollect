@@ -14,6 +14,12 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 
+/**
+ * Activity to login a user
+ * @author Hugo C.
+ * @version 1.0
+ * @since 2023-03-22
+ */
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etPseudo;
@@ -25,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         etPseudo = findViewById(R.id.editTextPseudo);
@@ -56,10 +63,8 @@ public class LoginActivity extends AppCompatActivity {
      */
     public void onClickLogin(View view){
 
-        HttpGetRequest httpGetRequest = new HttpGetRequest();
-
         if(checkFields()){
-            HashMap<String, Object> response = httpGetRequest.connectUser(etPseudo.getText().toString().trim(),
+            HashMap<String, Object> response = HttpGetRequest.connectUser(etPseudo.getText().toString().trim(),
                     etPassword.getText().toString().trim());
 
             if(response.get("error").equals(getString(R.string.user_not_found))) {

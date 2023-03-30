@@ -4,17 +4,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * Adapter for the RecyclerView, contains the items data.
+ * @author Hugo C.
+ * @version 1.0
+ * @since 2023-03-27
+ */
 public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder>{
-    private List<Item> ItemList;
+    private List<Item> itemList;
 
-    public ItemAdapter(List<Item> dataList) {
-        ItemList = dataList;
+    public ItemAdapter(List<Item> itemList) {
+        this.itemList = itemList;
     }
 
+    @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -24,20 +32,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder>{
 
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
-        Item data = ItemList.get(position);
-        holder.title.setText(data.getTitle());
-        holder.description.setText(data.getDescription());
+        Item data = itemList.get(position);
+        holder.bind(data);
     }
 
     @Override
     public int getItemCount() {
-        return ItemList.size();
+        return itemList.size();
     }
 
     public void moveItem(int fromPosition, int toPosition) {
-        Item item = ItemList.get(fromPosition);
-        ItemList.remove(fromPosition);
-        ItemList.add(toPosition, item);
+        Item item = itemList.get(fromPosition);
+        itemList.remove(fromPosition);
+        itemList.add(toPosition, item);
         notifyItemMoved(fromPosition, toPosition);
     }
 }
