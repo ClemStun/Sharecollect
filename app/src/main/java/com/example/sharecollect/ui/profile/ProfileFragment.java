@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sharecollect.HttpGetRequest;
 import com.example.sharecollect.MainActivity;
+import com.example.sharecollect.User;
 import com.example.sharecollect.databinding.FragmentProfileBinding;
 
 import java.util.HashMap;
@@ -22,27 +23,27 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                                 ViewGroup container, Bundle savedInstanceState) {
 
-            binding = FragmentProfileBinding.inflate(inflater, container, false);
-            View root = binding.getRoot();
+        binding = FragmentProfileBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
 
-        MainActivity mainActivity = (MainActivity) getActivity();
+        MainActivity mainActivity = getMainActivity();
+        User user = mainActivity.getUser();
 
-            HttpGetRequest getRequest = new HttpGetRequest();
-            HashMap<String, Object> response = getRequest.getUser(mainActivity.getId(), mainActivity.getToken());
+        final TextView tvPseudo = binding.textViewPseudo;
+        final TextView tvEmail = binding.textViewEmail;
 
-            System.out.println(response);
+        tvPseudo.setText(user.getUsername());
+        tvEmail.setText(user.getMail());
+        return root;
+    }
 
-            final TextView tvPseudo = binding.textViewPseudo;
-            final TextView tvEmail = binding.textViewEmail;
+    public MainActivity getMainActivity() {
+        return (MainActivity) getActivity();
+    }
 
-            tvPseudo.setText((String) response.get("username"));
-            tvEmail.setText((String) response.get("mail"));
-            return root;
-        }
-
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-            binding = null;
-        }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }

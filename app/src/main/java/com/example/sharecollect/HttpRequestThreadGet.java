@@ -1,17 +1,19 @@
 package com.example.sharecollect;
 
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.HashMap;
 
 /**
  * Thread that allows to perform an asynchronous HTTP GET request
@@ -20,11 +22,11 @@ import java.util.HashMap;
  * @version 1.0
  * @since 2023-03-07
  */
-public class HttpRequestThread implements Runnable {
+public class HttpRequestThreadGet implements Runnable {
     private final String urlString;
     private HashMap<String, Object> requestResult;
 
-    public HttpRequestThread(String urlString) {
+    public HttpRequestThreadGet(String urlString) {
         this.urlString = urlString;
     }
 
@@ -60,7 +62,7 @@ public class HttpRequestThread implements Runnable {
             requestResult = responseMap;
 
         } catch (Exception e) {
-            Logger.getLogger(HttpRequestThread.class.getName()).log(Level.SEVERE, "HTTP request error : ", e);
+            Logger.getLogger(HttpRequestThreadGet.class.getName()).log(Level.SEVERE, "HTTP request error : ", e);
         }
     }
 
@@ -84,11 +86,34 @@ public class HttpRequestThread implements Runnable {
                 hashMapValues2String(childHashMap);
                 entry.setValue(childHashMap);
 
+            } else if (value instanceof ArrayList) {
+                ArrayList<LinkedTreeMap<String, Object>> v = (ArrayList<LinkedTreeMap<String, Object>>) value;
+                HashMap<String, Object> newHashMap = ArrayList2HashMap(v);
+                entry.setValue(newHashMap);
             } else if (value instanceof Boolean) {
                 Boolean v = (Boolean) value;
                 entry.setValue(v.toString());
             }
         }
+    }
 
+    /**
+     * Allows to convert an ArrayList of LinkedTreeMap
+     * to a HashMap
+     * @param arrayList : ArrayList to convert
+     * @return the converted HashMap
+     */
+    private HashMap<String, Object> ArrayList2HashMap(ArrayList<LinkedTreeMap<String, Object>> arrayList) {
+        HashMap<String, Object> newHashMap = new HashMap<>();
+        for (int i = 0; i < arrayList.size(); i++) {
+            LinkedTreeMap<String, Object> childLinkedTreeMap = (LinkedTreeMap<String, Object>) arrayList.get(i);
+            HashMap<String, Object> childHashMap = new HashMap<>(childLinkedTreeMap);
+
+            hashMapValues2String(childHashMap);
+
+            newHashMap.put(Integer.toString(i), childHashMap);
+        }
+
+        return newHashMap;
     }
 }

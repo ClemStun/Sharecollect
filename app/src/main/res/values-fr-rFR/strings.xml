@@ -18,6 +18,7 @@
     <string name="password_confirm">Confirmer le mot de passe</string>
     <string name="login">Connexion</string>
     <string name="register">S\'inscrire</string>
+    <string name="add_profile_picture">Ajouter une photo de profil</string>
 
     <string name="creation_failed">Création échouée</string>
     <string name="user_already_exists">L\'utilisateur existe déjà</string>
@@ -30,8 +31,19 @@
     <string name="pwd_confirm_required">Confirmation du mot de passe requise</string>
     <string name="pwd_confirm_not_match">Les mots de passe ne correspondent pas</string>
 
-    <string name="desc_back_button">Bouton retour</string>
+    <string name="desc_back_button">Retour</string>
     <string name="desc_show_hide_password">Afficher/Masquer le mot de passe</string>
+
+    #Collection activity
+
+    <string name="create_button">Nouveau</string>
+    <string name="create_collection_title">Créer une collection</string>
+    <string name="title">Titre</string>
+    <string name="next">Suivant</string>
+    <string name="description">Description</string>
+    <string name="title_activity_item_create">Créer un objet</string>
+    <string name="add_item">Ajouter un nouvel objet</string>
+    <string name="valid_collection">Valider la collection</string>
 
     #Profile activity
     <string name="edit_profile">Modifier le profil</string>
