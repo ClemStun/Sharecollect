@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.sharecollect.controllers.UserController;
+import com.example.sharecollect.models.User;
+
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
@@ -72,6 +75,12 @@ public class LoginActivity extends AppCompatActivity {
                 tvError.setVisibility(View.VISIBLE);
             } else {
                 Intent intent = new Intent(this, MainActivity.class);
+
+                //Sotckage des données de l'utilisateur
+                UserController userController = UserController.getInstance();
+                User user = new User(Integer.parseInt((String) response.get("id")), (String) response.get("pseudo"), (String) response.get("email"));
+                userController.setUser(user);
+
                 intent.putExtra("id", (String) response.get("id"));
                 intent.putExtra("token", (String) response.get("token"));
                 startActivity(intent);
