@@ -114,6 +114,8 @@ public class CollectionsFragment extends Fragment {
                 return true;
             }
 
+
+
             @Override
             public void onSelectedChanged(@Nullable RecyclerView.ViewHolder viewHolder, int actionState) {
                 super.onSelectedChanged(viewHolder, actionState);

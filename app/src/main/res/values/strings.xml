@@ -44,6 +44,7 @@
     <string name="title_activity_item_create">Create item</string>
     <string name="add_item">Add a new item</string>
     <string name="valid_collection">Validate collection</string>
+    <string name="owner">Owner</string>
 
     # Profile activity
     <string name="edit_profile">Edit profile</string>
