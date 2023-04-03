@@ -16,6 +16,7 @@ import com.example.sharecollect.models.Item;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class CollectionActivity extends AppCompatActivity {
 
@@ -43,7 +44,7 @@ public class CollectionActivity extends AppCompatActivity {
 
         HashMap<String, Object> items = (HashMap<String, Object>) response.get("items");
 
-        for (int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < Objects.requireNonNull(items).size(); i++) {
             HashMap<String, Object> item = (HashMap<String, Object>) items.get(String.valueOf(i));
             itemList.add(new Item((String) item.get("name"), (Uri) item.get("image")));
         }
