@@ -10,19 +10,19 @@ import static java.lang.Integer.parseInt;
  */
 public class Collection {
 
-    private final String id;
-    private final String owner;
+    private int id;
+    private int owner;
     private String title;
     private String description;
 
-    public Collection(String id, String owner, String title, String description) {
+    public Collection(int id, int owner, String title, String description) {
         this.title = title;
         this.description = description;
         this.owner = owner;
         this.id = id;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -34,7 +34,8 @@ public class Collection {
         return description;
     }
 
-    public String getOwner() {
+    public int getOwner() {
         return owner;
     }
+
 }
