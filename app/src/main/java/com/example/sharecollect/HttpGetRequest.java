@@ -200,7 +200,7 @@ public class HttpGetRequest {
         response.put("error", "");
 
         // Thread creation
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString, "json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThreadGet);
@@ -442,23 +442,6 @@ public class HttpGetRequest {
         });
     }
 
-    public static Bitmap getProfilePicture(String idUser) {
-
-        String urlString = "http://34.22.199.112/user/" + idUser + "/pp";
-
-        Log.println(Log.DEBUG, "GET PP", "URL : " + urlString);
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString, "image");
-        Future<?> future = executorService.submit(httpRequestThreadGet);
-
-        try {
-            future.get(); // Waiting for the thread to end
-        } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
-        }
-
-        return (Bitmap) httpRequestThreadGet.getRequestResult().get("image");
-
-    }
     public static Bitmap getProfilePicture(String idUser) {
 
         String urlString = "http://34.22.199.112/user/" + idUser + "/pp";
