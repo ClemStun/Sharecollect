@@ -1,6 +1,7 @@
 package com.example.sharecollect;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -321,6 +322,38 @@ public class HttpGetRequest {
         return response;
     }
 
+    public static HashMap<String, Object> addNotifToken(String id, String token) {
+        String urlString = "http://34.22.199.112/user/" +
+                id +
+                "/addnotiftoken?token=" +
+                token;
+
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("error", "");
+
+        HttpRequestThreadGet httpRequestThread = new HttpRequestThreadGet(urlString);
+
+        // Thread execution
+        Future<?> future = executorService.submit(httpRequestThread);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            response.put("error", "Network error");
+        }
+
+        if (response.get("error").equals("")) {
+            response.putAll(httpRequestThread.getRequestResult());
+
+            if (Objects.equals(response.get("valid"), "false"))
+                response.put("error", "Token not added");
+        }
+
+        return response;
+
+    }
+
     /**
      * Allows to get a collection's items
      * using an asynchronous HTTP GET request
@@ -357,68 +390,30 @@ public class HttpGetRequest {
     }
 
     public static void sendProfilePicture(String idUser, File image) {
-        ApiService apiService;
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), image);
+        MultipartBody.Part imagePart = MultipartBody.Part.createFormData("image", image.getName(), requestBody);
+
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://34.22.199.112/user/" + idUser + "/newpp/")
-                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("http://34.22.199.112/user/" + idUser + "/")
                 .build();
 
-        apiService = retrofit.create(ApiService.class);
+        ApiService apiService = retrofit.create(ApiService.class);
 
-        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), image);
-
-        MultipartBody.Part body = MultipartBody.Part.createFormData("image", image.getName(), requestFile);
-
-        Call<ResponseBody> call = apiService.uploadImage(body);
+        Call<ResponseBody> call = apiService.uploadImage(imagePart);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-                    System.out.println("Image uploaded");
-                } else {
-                    System.out.println("Image not uploaded 1 " + response.errorBody() + response.message() + response.code() + response.headers());
-                }
+                Log.println(Log.INFO, "USER PP", "Réponse : " + response.toString());
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                System.out.println("Image not uploaded 2 " + t.getMessage() + t.getCause() + t.getLocalizedMessage() + t.getStackTrace());
+                Log.println(Log.ERROR, "USER PP", "Error when trying to send new pictures");
             }
         });
 
     }
-
-    public static HashMap<String, Object> addNotifToken(String id, String token) {
-        String urlString = "http://34.22.199.112/user/" +
-                id +
-                "/addnotiftoken?token=" +
-                token;
-                
-        HashMap<String, Object> response = new HashMap<>();
-        response.put("error", "");
-                
-        HttpRequestThreadGet httpRequestThread = new HttpRequestThreadGet(urlString);
-
-        // Thread execution
-        Future<?> future = executorService.submit(httpRequestThread);
-
-        try {
-            future.get(); // Waiting for the thread to end
-        } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
-            response.put("error", "Network error");
-        }
-
-        if (response.get("error").equals("")) {
-            response.putAll(httpRequestThread.getRequestResult());
-
-            if (Objects.equals(response.get("valid"), "false"))
-                response.put("error", "Token not added");
-        }
-        
-        return response;    
-        
-   }
 
 }
