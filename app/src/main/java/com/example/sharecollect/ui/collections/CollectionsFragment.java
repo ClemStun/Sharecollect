@@ -1,6 +1,5 @@
 package com.example.sharecollect.ui.collections;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sharecollect.Collection;
+import com.example.sharecollect.models.Collection;
 import com.example.sharecollect.HttpGetRequest;
 import com.example.sharecollect.CollectionAdapter;
 import com.example.sharecollect.OnCollectionClickListener;

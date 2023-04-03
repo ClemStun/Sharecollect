@@ -3,9 +3,9 @@ package com.example.sharecollect;
 import android.graphics.Bitmap;
 import android.util.Log;
 
-import java.io.ByteArrayOutputStream;
+import com.example.sharecollect.models.Item;
+
 import java.io.File;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -24,7 +24,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * That allows to perform an asynchronous HTTP GET request
@@ -58,7 +57,7 @@ public class HttpGetRequest {
         response.put("error", "");
 
         // Thread creation
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString,"json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThreadGet);
@@ -100,7 +99,7 @@ public class HttpGetRequest {
         response.put("error", "");
 
         // Thread creation
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString,"json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThreadGet);
@@ -141,7 +140,7 @@ public class HttpGetRequest {
 
 
         // Thread creation
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString,"json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThreadGet);
@@ -172,7 +171,7 @@ public class HttpGetRequest {
         response.put("error", "");
 
         // Thread creation
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString,"json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThreadGet);
@@ -235,7 +234,7 @@ public class HttpGetRequest {
         response.put("error", "");
 
         // Thread creation
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString,"json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThreadGet);
@@ -273,7 +272,7 @@ public class HttpGetRequest {
 
 
         // Thread creation
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString,"json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThreadGet);
@@ -326,7 +325,7 @@ public class HttpGetRequest {
         response.put("error", "");
 
         // Thread creation
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString.toString());
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString.toString(),"json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThreadGet);
@@ -357,7 +356,7 @@ public class HttpGetRequest {
         HashMap<String, Object> response = new HashMap<>();
         response.put("error", "");
 
-        HttpRequestThreadGet httpRequestThread = new HttpRequestThreadGet(urlString);
+        HttpRequestThreadGet httpRequestThread = new HttpRequestThreadGet(urlString,"json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThread);
@@ -395,7 +394,7 @@ public class HttpGetRequest {
         response.put("error", "");
 
         // Thread creation
-        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString, "json");
 
         // Thread execution
         Future<?> future = executorService.submit(httpRequestThreadGet);
@@ -442,4 +441,41 @@ public class HttpGetRequest {
             }
         });
     }
+
+    public static Bitmap getProfilePicture(String idUser) {
+
+        String urlString = "http://34.22.199.112/user/" + idUser + "/pp";
+
+        Log.println(Log.DEBUG, "GET PP", "URL : " + urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString, "image");
+        Future<?> future = executorService.submit(httpRequestThreadGet);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+        }
+
+        return (Bitmap) httpRequestThreadGet.getRequestResult().get("image");
+
+    }
+    public static Bitmap getProfilePicture(String idUser) {
+
+        String urlString = "http://34.22.199.112/user/" + idUser + "/pp";
+
+        Log.println(Log.DEBUG, "GET PP", "URL : " + urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString, "image");
+        Future<?> future = executorService.submit(httpRequestThreadGet);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+        }
+
+        return (Bitmap) httpRequestThreadGet.getRequestResult().get("image");
+
+    }
+
+
 }

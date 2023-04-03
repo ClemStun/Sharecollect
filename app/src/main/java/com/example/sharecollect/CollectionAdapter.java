@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.sharecollect.models.Collection;
+
 import java.util.List;
 import java.util.Locale;
 

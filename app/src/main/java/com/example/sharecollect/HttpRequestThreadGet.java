@@ -1,10 +1,14 @@
 package com.example.sharecollect;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
@@ -24,10 +28,14 @@ import java.util.logging.Logger;
  */
 public class HttpRequestThreadGet implements Runnable {
     private final String urlString;
+    private final String responseType;
     private HashMap<String, Object> requestResult;
 
-    public HttpRequestThreadGet(String urlString) {
+    public HttpRequestThreadGet(String urlString, String responseType) {
+
         this.urlString = urlString;
+        this.responseType = responseType;
+
     }
 
     public HashMap<String, Object> getRequestResult() {
@@ -48,18 +56,33 @@ public class HttpRequestThreadGet implements Runnable {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
 
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(urlConnection.getInputStream()));
+            if(responseType.equals("json")) {
+                BufferedReader in = new BufferedReader(
+                        new InputStreamReader(urlConnection.getInputStream()));
 
-            Gson gson = new Gson();
-            Type type = new TypeToken<HashMap<String, Object>>(){}.getType();
-            HashMap<String, Object> responseMap = gson.fromJson(in, type);
+                Gson gson = new Gson();
+                Type type = new TypeToken<HashMap<String, Object>>() {
+                }.getType();
+                HashMap<String, Object> responseMap = gson.fromJson(in, type);
 
-            hashMapValues2String(responseMap);
+                hashMapValues2String(responseMap);
 
-            in.close();
+                in.close();
 
-            requestResult = responseMap;
+                requestResult = responseMap;
+            } else if (responseType.equals("image")) {
+
+                Bitmap bitmap = null;
+
+                if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    InputStream inputStream = urlConnection.getInputStream();
+                    bitmap = BitmapFactory.decodeStream(inputStream);
+                }
+
+                requestResult = new HashMap<>();
+                requestResult.put("image", bitmap);
+
+            }
 
         } catch (Exception e) {
             Logger.getLogger(HttpRequestThreadGet.class.getName()).log(Level.SEVERE, "HTTP request error : ", e);

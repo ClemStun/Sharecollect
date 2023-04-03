@@ -7,8 +7,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sharecollect.controllers.UserController;
-
-import org.w3c.dom.Text;
+import com.example.sharecollect.models.Collection;
 
 import java.util.List;
 
