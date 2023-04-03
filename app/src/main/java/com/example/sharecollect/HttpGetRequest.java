@@ -467,7 +467,7 @@ public class HttpGetRequest {
             }
         });
     }
-
+    
     public static Bitmap getProfilePicture(String idUser) {
 
         String urlString = "http://34.22.199.112/user/" + idUser + "/pp";
