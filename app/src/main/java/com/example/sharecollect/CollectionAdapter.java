@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Adapter for the RecyclerView, contains the collections data.
@@ -18,8 +19,11 @@ import java.util.List;
 public class CollectionAdapter extends RecyclerView.Adapter<CollectionViewHolder>{
     private List<Collection> collectionList;
 
-    public CollectionAdapter(List<Collection> dataList) {
+    private final OnCollectionClickListener onCollectionClickListener;
+
+    public CollectionAdapter(List<Collection> dataList, OnCollectionClickListener onCollectionClickListener) {
         collectionList = dataList;
+        this.onCollectionClickListener = onCollectionClickListener;
     }
 
     @NonNull
@@ -27,7 +31,7 @@ public class CollectionAdapter extends RecyclerView.Adapter<CollectionViewHolder
     public CollectionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.collection_layout, parent, false);
-        return new CollectionViewHolder(view);
+        return new CollectionViewHolder(view, collectionList, onCollectionClickListener);
     }
 
     @Override
