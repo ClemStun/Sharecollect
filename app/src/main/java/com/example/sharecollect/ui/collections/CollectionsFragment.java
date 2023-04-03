@@ -64,6 +64,13 @@ public class CollectionsFragment extends Fragment implements OnCollectionClickLi
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        initCollectionList(binding.collectionsRecyclerView, layoutManager);
+    }
+
     private void setOnclickListeners(View root) {
         binding.createButton.setOnClickListener(v -> {
             Intent intent = new Intent(root.getContext(), CollectionCreateActivity.class);
@@ -156,8 +163,7 @@ public class CollectionsFragment extends Fragment implements OnCollectionClickLi
     @Override
     public void onCollectionClick(Collection collection) {
         Intent intent = new Intent(getContext(), CollectionActivity.class);
-        System.out.println(collection.getId());
-        intent.putExtra("collection_id", collection.getId());
+        intent.putExtra("collection_id", Integer.toString(collection.getId()));
         startActivity(intent);
     }
 }

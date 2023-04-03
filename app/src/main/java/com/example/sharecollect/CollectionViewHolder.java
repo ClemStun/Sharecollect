@@ -43,7 +43,7 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
     public void bind(Collection collection) {
         title.setText(collection.getTitle());
         description.setText(collection.getDescription());
-        if(UserController.getInstance().getUser().getUsername().equals(collection.getOwner())) {
+        if(UserController.getInstance().getUser().getId() == collection.getOwner()) {
             owner.setVisibility(View.VISIBLE);
         }
     }
