@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.sharecollect.R;
+import com.example.sharecollect.controllers.CollectionController;
 import com.example.sharecollect.controllers.UserController;
+import com.example.sharecollect.models.Collection;
 
 /**
  * Activity to create a new collection.
@@ -19,6 +21,7 @@ import com.example.sharecollect.controllers.UserController;
 public class CollectionCreateActivity extends AppCompatActivity {
 
     private UserController userController;
+    private CollectionController collectionController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,7 @@ public class CollectionCreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_collection_create);
 
         userController = UserController.getInstance();
+        collectionController = CollectionController.getInstance();
     }
 
     /**
@@ -37,9 +41,9 @@ public class CollectionCreateActivity extends AppCompatActivity {
         String title = ((EditText) findViewById(R.id.editTextName)).getText().toString();
         String description = ((EditText) findViewById(R.id.collection_desc)).getText().toString();
 
+        collectionController.setCollection(new Collection(0, userController.getUser().getId(), title, description));
+
         Intent intent = new Intent(this, ItemCreateActivity.class);
-        intent.putExtra("title", title);
-        intent.putExtra("description", description);
         startActivity(intent);
         finish();
     }

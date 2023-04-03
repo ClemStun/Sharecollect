@@ -59,7 +59,7 @@ public class SearchFragment extends Fragment implements OnCollectionClickListene
 
         for (int i = 0; i < collections.size(); i++) {
             HashMap<String, Object> collection = (HashMap<String, Object>) collections.get(String.valueOf(i));
-            collectionsList.add(new Collection((String) collection.get("id"), (String) collection.get("owner"), (String) collection.get("title"), (String) collection.get("description")));
+            collectionsList.add(new Collection(Integer.parseInt((String) collection.get("id")), Integer.parseInt((String) collection.get("owner")), (String) collection.get("title"), (String) collection.get("description")));
         }
 
         // Fill collectionAdapter with the list of collections

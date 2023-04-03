@@ -98,7 +98,7 @@ public class CollectionsFragment extends Fragment implements OnCollectionClickLi
                 HashMap<String, Object> collection = (HashMap<String, Object>) collections.get(String.valueOf(i));
                 assert collection != null;
                 HashMap<String, Object> collectionInfo = HttpGetRequest.getCollectionInformation((String) collection.get("collection_id"));
-                collectionsList.add(new Collection((String) collection.get("collection_id"), (String) collectionInfo.get("username"), (String) collectionInfo.get("title"), (String) collectionInfo.get("description")));
+                collectionsList.add(new Collection(Integer.parseInt((String) collection.get("collection_id")), Integer.parseInt((String) collectionInfo.get("owner")), (String) collectionInfo.get("title"), (String) collectionInfo.get("description")));
             }
         }
 
