@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sharecollect.Collection;
+import com.example.sharecollect.models.Collection;
 import com.example.sharecollect.CollectionAdapter;
 import com.example.sharecollect.HttpGetRequest;
 import com.example.sharecollect.OnCollectionClickListener;

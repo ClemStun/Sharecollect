@@ -2,19 +2,14 @@ package com.example.sharecollect;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.databinding.ActivityMainBinding;
-import com.example.sharecollect.ui.collections.CollectionActivity;
-import com.example.sharecollect.ui.collections.CollectionCreateActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -39,8 +34,34 @@ public class MainActivity extends AppCompatActivity {
         com.example.sharecollect.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-        NavigationUI.setupWithNavController(binding.navView, navController);
+        ViewPager2 viewPager2 = findViewById(R.id.view_pager2);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
+        viewPager2.setAdapter(viewPagerAdapter);
+
+        binding.navView.setOnItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.navigation_home) {
+                viewPager2.setCurrentItem(0);
+            } else if (itemId == R.id.navigation_search) {
+                viewPager2.setCurrentItem(1);
+            } else if (itemId == R.id.navigation_collections) {
+                viewPager2.setCurrentItem(2);
+            } else if (itemId == R.id.navigation_friends) {
+                viewPager2.setCurrentItem(3);
+            } else if (itemId == R.id.navigation_profile) {
+                viewPager2.setCurrentItem(4);
+            }
+            return true;
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                binding.navView.getMenu().getItem(position).setChecked(true);
+            }
+        });
+
+        viewPager2.setCurrentItem(0);
 
         // recover id and token from the login activity
         Bundle extras = getIntent().getExtras();
