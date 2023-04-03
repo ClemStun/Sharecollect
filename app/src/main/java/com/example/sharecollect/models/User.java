@@ -10,12 +10,12 @@ public class User {
     public User(int id, String username, String email, String token) {
         this.id = id;
         this.username = username;
-        this.email = email;
-        this.token = token;
-    }
+            this.email = email;
+            this.token = token;
+        }
 
-    @Override
-    public String toString(){
+        @Override
+        public String toString(){
         return "User : id: " + id + " username: " + username + " email: " + email + " token: " + token;
     }
 

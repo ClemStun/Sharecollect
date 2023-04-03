@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sharecollect.HttpGetRequest;
+import com.example.sharecollect.controllers.CollectionController;
 import com.example.sharecollect.models.Item;
 import com.example.sharecollect.ItemAdapter;
 import com.example.sharecollect.R;
@@ -47,6 +48,7 @@ import java.util.Locale;
 public class ItemCreateActivity extends AppCompatActivity {
 
     private UserController userController;
+    private CollectionController collectionController;
 
     // Popup window to add a new item
     private PopupWindow popupWindow;
@@ -64,9 +66,11 @@ public class ItemCreateActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_create);
 
-        TextView collectionTitle = findViewById(R.id.collection_title_add_item);
-        collectionTitle.setText(getIntent().getStringExtra("title"));
+        collectionController = CollectionController.getInstance();
         userController = UserController.getInstance();
+
+        TextView collectionTitle = findViewById(R.id.collection_title_add_item);
+        collectionTitle.setText(collectionController.getCollection().getTitle());
         popupView = getLayoutInflater().inflate(R.layout.popup_add_item, null);
 
         itemList = new ArrayList<>();
@@ -105,6 +109,7 @@ public class ItemCreateActivity extends AppCompatActivity {
         newItemTitle = popupView.findViewById(R.id.editTextNewItemTitle);
 
         popupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT, true);
+        //Faut envoyer les images
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
     }
 
@@ -135,7 +140,7 @@ public class ItemCreateActivity extends AppCompatActivity {
     }
 
     public void validCollection(View view) {
-        HttpGetRequest.createCollection(Integer.toString(userController.getUser().getId()), userController.getUser().getToken(), getIntent().getStringExtra("title"), getIntent().getStringExtra("description"), itemList);
+        HttpGetRequest.createCollection(Integer.toString(userController.getUser().getId()), userController.getUser().getToken(), collectionController.getCollection().getTitle(), collectionController.getCollection().getDescription(), itemList);
         finish();
     }
 
@@ -171,12 +176,4 @@ public class ItemCreateActivity extends AppCompatActivity {
         );
     }
 
-    /*@Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            imageView.setImageBitmap(imageBitmap);
-        }
-    }*/
 }

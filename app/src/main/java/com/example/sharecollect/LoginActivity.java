@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.models.User;
 import com.example.sharecollect.notification.MyFirebaseMessagingService;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.HashMap;
 
@@ -29,8 +30,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etPseudo;
     private EditText etPassword;
-    private Button btnLogin;
-    private Button btnRegister;
     private TextView tvError;
     private UserController userController;
 
@@ -42,8 +41,6 @@ public class LoginActivity extends AppCompatActivity {
 
         etPseudo = findViewById(R.id.editTextPseudo);
         etPassword = findViewById(R.id.editTextPassword);
-        btnLogin = findViewById(R.id.login_btn);
-        btnRegister = findViewById(R.id.register_btn);
         tvError = findViewById(R.id.textViewErrorMessage);
     }
 
@@ -90,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                 User user = new User(Integer.parseInt((String) response.get("id")), (String) response.get("username"), (String) response.get("mail"), (String) response.get("token"));
                 userController.setUser(user);
 
-                sendNotifToken();
                 startActivity(intent);
             }
         }
@@ -141,9 +137,4 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void sendNotifToken(){
-
-        HttpGetRequest.addNotifToken(Integer.toString(userController.getUser().getId()), MyFirebaseMessagingService.notificationToken);
-
-    }
 }

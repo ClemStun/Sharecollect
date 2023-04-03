@@ -441,6 +441,33 @@ public class HttpGetRequest {
             }
         });
     }
+
+    public static void sendItemPicture(String idUser, File image) {
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), image);
+        MultipartBody.Part imagePart = MultipartBody.Part.createFormData("image", image.getName(), requestBody);
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://34.22.199.112/user/" + idUser + "/")
+                .build();
+
+        ApiService apiService = retrofit.create(ApiService.class);
+
+        Call<ResponseBody> call = apiService.uploadImage(imagePart);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.println(Log.INFO, "USER PP", "Réponse : " + response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.println(Log.ERROR, "USER PP", "Error when trying to send new pictures");
+            }
+        });
+    }
+    
     public static Bitmap getProfilePicture(String idUser) {
 
         String urlString = "http://34.22.199.112/user/" + idUser + "/pp";

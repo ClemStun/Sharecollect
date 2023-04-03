@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.net.Uri;
+import android.os.Bundle;
 
 import com.example.sharecollect.HttpGetRequest;
 import com.example.sharecollect.ItemAdapter;
@@ -43,7 +45,7 @@ public class CollectionActivity extends AppCompatActivity {
 
         for (int i = 0; i < items.size(); i++) {
             HashMap<String, Object> item = (HashMap<String, Object>) items.get(String.valueOf(i));
-            itemList.add(new Item((String) item.get("name"), null));
+            itemList.add(new Item((String) item.get("name"), (Uri) item.get("image")));
         }
 
         initItemList(collectionRecyclerView, layoutManager);

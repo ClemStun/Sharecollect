@@ -10,6 +10,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.databinding.ActivityMainBinding;
+import com.example.sharecollect.notification.MyFirebaseMessagingService;
+import com.example.sharecollect.ui.collections.CollectionActivity;
+import com.example.sharecollect.ui.collections.CollectionCreateActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -79,8 +82,15 @@ public class MainActivity extends AppCompatActivity {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         String token = task.getResult();
-                        Log.d("FCM", "Token : " + token);
+                        sendNotifToken(token);
                     }
                 });
+
+
+    }
+    private void sendNotifToken(String token){
+
+        HttpGetRequest.addNotifToken(Integer.toString(userController.getUser().getId()), token);
+
     }
 }
