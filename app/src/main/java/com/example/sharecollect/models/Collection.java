@@ -1,4 +1,4 @@
-package com.example.sharecollect;
+package com.example.sharecollect.models;
 
 import static java.lang.Integer.parseInt;
 

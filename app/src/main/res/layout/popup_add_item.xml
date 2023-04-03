@@ -31,6 +31,19 @@
             android:inputType="textPersonName"
             android:hint="Title" />
 
+        <ImageView
+            android:id="@+id/itemImagePreview"
+            android:layout_width="match_parent"
+            android:layout_height="87dp"
+            tools:srcCompat="@drawable/ic_collections_black_24dp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:onClick="takePhoto"
+            android:text="Take picture" />
+
         <Button
             android:id="@+id/ButtonAddItem"
             android:layout_width="match_parent"
@@ -38,6 +51,7 @@
             android:layout_margin="20dp"
             android:onClick="addItemPopup"
             android:text="Add item" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

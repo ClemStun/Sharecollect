@@ -1,25 +1,42 @@
 package com.example.sharecollect.ui.collections;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sharecollect.HttpGetRequest;
-import com.example.sharecollect.Item;
+import com.example.sharecollect.models.Item;
 import com.example.sharecollect.ItemAdapter;
 import com.example.sharecollect.R;
 import com.example.sharecollect.controllers.UserController;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Activity to create a new item list.
@@ -35,8 +52,12 @@ public class ItemCreateActivity extends AppCompatActivity {
     private PopupWindow popupWindow;
 
     private EditText newItemTitle;
+    private Uri photoUri = null;
 
     private List<Item> itemList;
+
+    private ActivityResultLauncher<Uri> cameraLauncher;
+    private View popupView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +67,7 @@ public class ItemCreateActivity extends AppCompatActivity {
         TextView collectionTitle = findViewById(R.id.collection_title_add_item);
         collectionTitle.setText(getIntent().getStringExtra("title"));
         userController = UserController.getInstance();
+        popupView = getLayoutInflater().inflate(R.layout.popup_add_item, null);
 
         itemList = new ArrayList<>();
 
@@ -58,6 +80,19 @@ public class ItemCreateActivity extends AppCompatActivity {
 
         // Initialize the list of items in the fragment
         initItemList(itemsRecyclerView, layoutManager);
+
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.TakePicture(),
+                result -> {
+                    if (result) {
+                        // La photo a été enregistrée avec succès
+                        ImageView imageView = popupView.findViewById(R.id.itemImagePreview);
+                        imageView.setImageURI(photoUri);
+                    } else {
+                        // La photo n'a pas été enregistrée
+                        Toast.makeText(this, "Failed to take photo", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     /**
@@ -66,8 +101,6 @@ public class ItemCreateActivity extends AppCompatActivity {
      * @param view The view
      */
     public void addItem(View view){
-
-        final View popupView = getLayoutInflater().inflate(R.layout.popup_add_item, null);
 
         newItemTitle = popupView.findViewById(R.id.editTextNewItemTitle);
 
@@ -83,7 +116,7 @@ public class ItemCreateActivity extends AppCompatActivity {
      */
     public void addItemPopup(View view){
         String item_name = newItemTitle.getText().toString();
-        itemList.add(new Item(item_name));
+        itemList.add(new Item(item_name, this.photoUri));
         popupWindow.dismiss();
 
         RecyclerView itemsRecyclerView = findViewById(R.id.itemsRecyclerView);
@@ -105,4 +138,45 @@ public class ItemCreateActivity extends AppCompatActivity {
         HttpGetRequest.createCollection(Integer.toString(userController.getUser().getId()), userController.getUser().getToken(), getIntent().getStringExtra("title"), getIntent().getStringExtra("description"), itemList);
         finish();
     }
+
+    public void takePhoto(View view) {
+
+        File imageFile = null;
+
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, 1);
+            return;
+        }
+
+        try {
+            imageFile = createImageFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (imageFile != null) {
+            this.photoUri = FileProvider.getUriForFile(this, "com.example.android.fileprovider", imageFile);
+            cameraLauncher.launch(photoUri);
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.FRANCE).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
+    }
+
+    /*@Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(imageBitmap);
+        }
+    }*/
 }

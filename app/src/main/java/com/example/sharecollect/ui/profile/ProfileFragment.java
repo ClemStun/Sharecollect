@@ -5,12 +5,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.sharecollect.HttpGetRequest;
 import com.example.sharecollect.MainActivity;
+import com.example.sharecollect.R;
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.databinding.FragmentProfileBinding;
 
@@ -34,6 +37,10 @@ public class ProfileFragment extends Fragment {
 
         tvPseudo.setText(userController.getUser().getUsername());
         tvEmail.setText(userController.getUser().getEmail());
+
+        ImageView ivAvatar = binding.imageViewProfilePicture;
+        ivAvatar.setImageBitmap(HttpGetRequest.getProfilePicture(Integer.toString(userController.getUser().getId())));
+
         return root;
     }
 
