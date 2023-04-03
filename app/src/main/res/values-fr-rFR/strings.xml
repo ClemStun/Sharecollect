@@ -34,6 +34,10 @@
     <string name="desc_back_button">Retour</string>
     <string name="desc_show_hide_password">Afficher/Masquer le mot de passe</string>
 
+    #Search activity
+
+    <string name="search">Chercher</string>
+
     #Collection activity
 
     <string name="create_button">Nouveau</string>

@@ -10,14 +10,20 @@ import static java.lang.Integer.parseInt;
  */
 public class Collection {
 
+    private final String id;
     private final String owner;
     private String title;
     private String description;
 
-    public Collection(String owner, String title, String description) {
+    public Collection(String id, String owner, String title, String description) {
         this.title = title;
         this.description = description;
         this.owner = owner;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {

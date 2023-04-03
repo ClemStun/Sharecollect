@@ -34,6 +34,9 @@
     <string name="desc_back_button">Back</string>
     <string name="desc_show_hide_password">Show/Hide password</string>
 
+    # Search activity
+    <string name="search">Search</string>
+
     # Collection activity
 
     <string name="create_button">New</string>

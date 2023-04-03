@@ -8,8 +8,7 @@
     android:padding="10dp"
     android:layout_margin="20dp"
     android:background="@drawable/collection_area"
-    android:elevation="10dp"
-    android:onClick="openCollection">
+    android:elevation="10dp">
 
     <ImageView
         android:id="@+id/imageViewOwner"
@@ -33,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:layout_gravity="center"
-            android:text="t"
             android:textSize="20sp"
             android:textStyle="bold"
             />
@@ -42,8 +40,7 @@
             android:id="@+id/textViewCollectionDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="t" />
+            android:layout_gravity="center" />
 
     </LinearLayout>
 

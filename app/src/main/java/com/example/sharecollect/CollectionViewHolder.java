@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.models.Collection;
 
+import java.util.List;
+
 /**
  * View holder for the collections.
  * @author Hugo C.
@@ -20,11 +22,22 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
     private TextView description;
     private ImageView owner;
 
-    public CollectionViewHolder(View collectionView) {
+    private List<Collection> collectionsList;
+
+    public CollectionViewHolder(View collectionView, List<Collection> collectionsList, OnCollectionClickListener onCollectionClickListener) {
         super(collectionView);
         title = collectionView.findViewById(R.id.textViewCollectionTitle);
         description = collectionView.findViewById(R.id.textViewCollectionDescription);
         owner = collectionView.findViewById(R.id.imageViewOwner);
+
+        this.collectionsList = collectionsList;
+
+        collectionView.setOnClickListener(v -> {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION && onCollectionClickListener != null) {
+                onCollectionClickListener.onCollectionClick(collectionsList.get(position));
+            }
+        });
     }
 
     public void bind(Collection collection) {

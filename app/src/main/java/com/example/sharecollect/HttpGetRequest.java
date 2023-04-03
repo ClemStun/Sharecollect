@@ -193,6 +193,32 @@ public class HttpGetRequest {
         return response;
     }
 
+    public static HashMap<String, Object> getAllCollection() {
+        String urlString = "http://34.22.199.112/collection";
+
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("error", "");
+
+        // Thread creation
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString);
+
+        // Thread execution
+        Future<?> future = executorService.submit(httpRequestThreadGet);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            response.put("error", "Network error");
+        }
+
+        if(Objects.equals(response.get("error"), "")) {
+            response.putAll(httpRequestThreadGet.getRequestResult());
+        }
+
+        return response;
+    }
+
     /**
      * Allows to get a user's collection list
      * using an asynchronous HTTP GET request
@@ -360,7 +386,9 @@ public class HttpGetRequest {
      * @return String containing the collection's items or an error message
      */
     public static HashMap<String, Object> getItems(String idCollection) {
-        String urlString = "http://34.22.199.112/?";
+        String urlString = "http://34.22.199.112/collection/"
+                + idCollection
+                + "/items";
 
         HashMap<String, Object> response = new HashMap<>();
         response.put("error", "");
@@ -412,6 +440,23 @@ public class HttpGetRequest {
                 Log.println(Log.ERROR, "USER PP", "Error when trying to send new pictures");
             }
         });
+    }
+
+    public static Bitmap getProfilePicture(String idUser) {
+
+        String urlString = "http://34.22.199.112/user/" + idUser + "/pp";
+
+        Log.println(Log.DEBUG, "GET PP", "URL : " + urlString);
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString, "image");
+        Future<?> future = executorService.submit(httpRequestThreadGet);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+        }
+
+        return (Bitmap) httpRequestThreadGet.getRequestResult().get("image");
 
     }
     public static Bitmap getProfilePicture(String idUser) {

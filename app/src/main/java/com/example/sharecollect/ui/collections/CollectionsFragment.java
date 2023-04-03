@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sharecollect.models.Collection;
 import com.example.sharecollect.HttpGetRequest;
 import com.example.sharecollect.CollectionAdapter;
+import com.example.sharecollect.OnCollectionClickListener;
 import com.example.sharecollect.R;
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.databinding.FragmentCollectionsBinding;
@@ -30,7 +31,7 @@ import java.util.List;
  * @version 1.0
  * @since 2023-03-27
  */
-public class CollectionsFragment extends Fragment {
+public class CollectionsFragment extends Fragment implements OnCollectionClickListener {
 
     private FragmentCollectionsBinding binding;
     private CollectionAdapter collectionAdapter;
@@ -46,6 +47,9 @@ public class CollectionsFragment extends Fragment {
         binding = FragmentCollectionsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        // Onclick listeners
+        setOnclickListeners(root);
+
         // Set the RecyclerView
         RecyclerView collectionsRecyclerView = binding.collectionsRecyclerView;
         collectionsRecyclerView.setHasFixedSize(true);
@@ -57,6 +61,13 @@ public class CollectionsFragment extends Fragment {
         initCollectionList(collectionsRecyclerView, layoutManager);
 
         return root;
+    }
+
+    private void setOnclickListeners(View root) {
+        binding.createButton.setOnClickListener(v -> {
+            Intent intent = new Intent(root.getContext(), CollectionCreateActivity.class);
+            startActivity(intent);
+        });
     }
 
     @Override
@@ -86,12 +97,12 @@ public class CollectionsFragment extends Fragment {
                 HashMap<String, Object> collection = (HashMap<String, Object>) collections.get(String.valueOf(i));
                 assert collection != null;
                 HashMap<String, Object> collectionInfo = HttpGetRequest.getCollectionInformation((String) collection.get("collection_id"));
-                collectionsList.add(new Collection((String) collectionInfo.get("username"), (String) collectionInfo.get("title"), (String) collectionInfo.get("description")));
+                collectionsList.add(new Collection((String) collection.get("collection_id"), (String) collectionInfo.get("username"), (String) collectionInfo.get("title"), (String) collectionInfo.get("description")));
             }
         }
 
         // Fill collectionAdapter with the list of collections
-        collectionAdapter = new CollectionAdapter(collectionsList);
+        collectionAdapter = new CollectionAdapter(collectionsList, this);
 
         collectionsRecyclerView.setLayoutManager(layoutManager);
         collectionsRecyclerView.setAdapter(collectionAdapter);
@@ -139,5 +150,13 @@ public class CollectionsFragment extends Fragment {
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(collectionsRecyclerView);
+    }
+
+    @Override
+    public void onCollectionClick(Collection collection) {
+        Intent intent = new Intent(getContext(), CollectionActivity.class);
+        System.out.println(collection.getId());
+        intent.putExtra("collection_id", collection.getId());
+        startActivity(intent);
     }
 }

@@ -62,18 +62,4 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    /**
-     * Redirect to the collection creation activity
-     * @param view : view
-     */
-    public void createCollection(View view) {
-        Intent intent = new Intent(this, CollectionCreateActivity.class);
-        startActivity(intent);
-    }
-
-    public void openCollection(View view) {
-        Intent intent = new Intent(this, CollectionActivity.class);
-        startActivity(intent);
-    }
 }
