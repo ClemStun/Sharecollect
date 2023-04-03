@@ -12,6 +12,9 @@ import retrofit2.http.Part;
 public interface ApiService {
 
     @Multipart
-    @POST("/upload")
-    Call<ResponseBody> uploadImage(@Part MultipartBody.Part image);
+    @POST("newpp")
+    Call<ResponseBody> uploadImage(
+            @Part MultipartBody.Part image
+    );
+
 }
