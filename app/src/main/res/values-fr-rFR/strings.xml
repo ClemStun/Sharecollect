@@ -44,6 +44,7 @@
     <string name="title_activity_item_create">Créer un objet</string>
     <string name="add_item">Ajouter un nouvel objet</string>
     <string name="valid_collection">Valider la collection</string>
+    <string name="owner">Propriétaire</string>
 
     #Profile activity
     <string name="edit_profile">Modifier le profil</string>

@@ -1,5 +1,7 @@
 package com.example.sharecollect;
 
+import static java.lang.Integer.parseInt;
+
 /**
  * Represents a collection
  * @author Hugo C.
@@ -24,5 +26,9 @@ public class Collection {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getOwner() {
+        return owner;
     }
 }

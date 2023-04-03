@@ -13,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.databinding.ActivityMainBinding;
+import com.example.sharecollect.ui.collections.CollectionActivity;
 import com.example.sharecollect.ui.collections.CollectionCreateActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -60,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("FCM", "Token : " + token);
                     }
                 });
-
     }
 
     /**
@@ -72,4 +72,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openCollection(View view) {
+        Intent intent = new Intent(this, CollectionActivity.class);
+        startActivity(intent);
+    }
 }

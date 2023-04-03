@@ -1,40 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/collection_layout"
+    android:id="@+id/collection_layout_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="32dp"
-    android:layout_margin="32dp"
+    android:padding="10dp"
+    android:layout_margin="20dp"
     android:background="@drawable/collection_area"
-    android:elevation="10dp">
+    android:elevation="10dp"
+    android:onClick="openCollection">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="fitXY"
-        android:layout_gravity="center"
-        android:layout_marginBottom="16dp"
-        app:srcCompat="@drawable/imagecollectionexample" />
-
-    <TextView
-        android:id="@+id/textViewCollectionTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
-        android:text="Titre"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:id="@+id/imageViewOwner"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/crown_logo"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:visibility="gone"
         />
 
-    <TextView
-        android:id="@+id/textViewCollectionDescription"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/collection_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Description" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/textViewCollectionTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_gravity="center"
+            android:text="t"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:id="@+id/textViewCollectionDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="t" />
+
+    </LinearLayout>
+
+</RelativeLayout>
