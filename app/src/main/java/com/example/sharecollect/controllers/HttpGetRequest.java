@@ -516,4 +516,63 @@ public class HttpGetRequest {
         return (Bitmap) httpRequestThreadGet.getRequestResult().get("image");
 
     }
+
+    public static HashMap<String, Object> getCollectionFollowers(int id) {
+        String urlString = "http://34.22.199.112/collection/"
+                + id
+                + "/getfollower";
+
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("error", "");
+
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString, "json");
+
+        Future<?> future = executorService.submit(httpRequestThreadGet);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            response.put("error", "Network error");
+        }
+
+        if (Objects.equals(response.get("error"), "")) {
+            response.putAll(httpRequestThreadGet.getRequestResult());
+
+            if (Objects.equals(response.get("valid"), "false"))
+                response.put("error", "Collection not found");
+        }
+
+        return response;
+    }
+
+    public static HashMap<String, Object> addCollectionFollower(int id_collection, int id_user) {
+        String urlString = "http://34.22.199.112/collection/"
+                + id_collection
+                + "/addfollower?user_id="
+                + id_user;
+
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("error", "");
+
+        HttpRequestThreadGet httpRequestThreadGet = new HttpRequestThreadGet(urlString, "json");
+
+        Future<?> future = executorService.submit(httpRequestThreadGet);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            response.put("error", "Network error");
+        }
+
+        if (Objects.equals(response.get("error"), "")) {
+            response.putAll(httpRequestThreadGet.getRequestResult());
+
+            if (Objects.equals(response.get("valid"), "false"))
+                response.put("error", "Collection not found");
+        }
+
+        return response;
+    }
 }
