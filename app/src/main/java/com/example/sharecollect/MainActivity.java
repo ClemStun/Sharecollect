@@ -3,16 +3,14 @@ package com.example.sharecollect;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.sharecollect.controllers.HttpGetRequest;
 import com.example.sharecollect.controllers.UserController;
+import com.example.sharecollect.controllers.ViewPagerAdapter;
 import com.example.sharecollect.databinding.ActivityMainBinding;
-import com.example.sharecollect.notification.MyFirebaseMessagingService;
-import com.example.sharecollect.ui.collections.CollectionActivity;
-import com.example.sharecollect.ui.collections.CollectionCreateActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 

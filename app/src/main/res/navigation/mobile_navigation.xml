@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.sharecollect.ui.home.HomeFragment"
+        android:name="com.example.sharecollect.View.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.sharecollect.ui.search.SearchFragment"
+        android:name="com.example.sharecollect.View.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_collections"
-        android:name="com.example.sharecollect.ui.collections.CollectionsFragment"
+        android:name="com.example.sharecollect.View.collections.CollectionsFragment"
         android:label="@string/title_collections"
         tools:layout="@layout/fragment_collections" />
 
     <fragment
         android:id="@+id/navigation_friends"
-        android:name="com.example.sharecollect.ui.friends.FriendsFragment"
+        android:name="com.example.sharecollect.View.friends.FriendsFragment"
         android:label="@string/title_friends"
         tools:layout="@layout/fragment_friends" />
 
     <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.example.sharecollect.ui.profile.ProfileFragment"
+        android:name="com.example.sharecollect.View.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
