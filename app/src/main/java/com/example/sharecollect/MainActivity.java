@@ -16,6 +16,8 @@ import com.example.sharecollect.ui.collections.CollectionCreateActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import retrofit2.http.HTTP;
+
 /**
  * Main activity of the application
  * It contains the navigation bar and the fragments
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-
+        HttpGetRequest.sendNotif("10");
     }
     private void sendNotifToken(String token){
 
