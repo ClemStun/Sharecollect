@@ -5,6 +5,7 @@ import static java.lang.Integer.parseInt;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +33,8 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
 
     private Button followButton;
 
+    private ProgressBar progressBar;
+
     private List<Collection> collectionsList;
 
     public CollectionViewHolder(View collectionView, List<Collection> collectionsList, OnCollectionClickListener onCollectionClickListener) {
@@ -40,6 +43,7 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
         description = collectionView.findViewById(R.id.textViewCollectionDescription);
         owner = collectionView.findViewById(R.id.imageViewOwner);
         followButton = collectionView.findViewById(R.id.buttonFollow);
+        progressBar = collectionView.findViewById(R.id.progressBar);
 
         this.collectionsList = collectionsList;
 
@@ -73,10 +77,13 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
             System.out.println(follower.get("user_id") + " = " + UserController.getInstance().getUser().getId());
             listFollowers.add(parseInt((String) follower.get("user_id")));
         }
+
         if(listFollowers.contains(UserController.getInstance().getUser().getId())) {
             followButton.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
         } else {
             followButton.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
         }
     }
 }
