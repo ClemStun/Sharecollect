@@ -17,7 +17,7 @@
         android:src="@drawable/crown_logo"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:visibility="visible"
+        android:visibility="gone"
         />
 
     <LinearLayout
@@ -33,16 +33,13 @@
             android:layout_marginBottom="10dp"
             android:layout_gravity="center"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="Collection"
-            />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/textViewCollectionDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Description test"/>
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
