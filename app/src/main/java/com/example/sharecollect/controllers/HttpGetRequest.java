@@ -516,6 +516,4 @@ public class HttpGetRequest {
         return (Bitmap) httpRequestThreadGet.getRequestResult().get("image");
 
     }
-
-
 }
