@@ -36,6 +36,7 @@
 
     # Search activity
     <string name="search">Search</string>
+    <string name="follow">Follow</string>
 
     # Collection activity
 
