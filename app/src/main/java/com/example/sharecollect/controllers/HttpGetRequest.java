@@ -379,6 +379,37 @@ public class HttpGetRequest {
 
     }
 
+    public static HashMap<String, Object> sendNotif(String id) {
+        String urlString = "http://34.22.199.112/user/" +
+                id +
+                "/sendnotif";
+
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("error", "");
+
+        HttpRequestThreadGet httpRequestThread = new HttpRequestThreadGet(urlString,"json");
+
+        // Thread execution
+        Future<?> future = executorService.submit(httpRequestThread);
+
+        try {
+            future.get(); // Waiting for the thread to end
+        } catch (InterruptedException | ExecutionException e) {
+            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            response.put("error", "Network error");
+        }
+
+        if (response.get("error").equals("")) {
+            response.putAll(httpRequestThread.getRequestResult());
+
+            if (Objects.equals(response.get("valid"), "false"))
+                response.put("error", "Token not added");
+        }
+
+        return response;
+
+    }
+
     /**
      * Allows to get a collection's items
      * using an asynchronous HTTP GET request
