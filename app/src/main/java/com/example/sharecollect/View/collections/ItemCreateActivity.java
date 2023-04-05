@@ -21,12 +21,12 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sharecollect.controllers.HttpGetRequest;
-import com.example.sharecollect.controllers.CollectionController;
-import com.example.sharecollect.models.Item;
-import com.example.sharecollect.controllers.ItemAdapter;
 import com.example.sharecollect.R;
+import com.example.sharecollect.controllers.CollectionController;
+import com.example.sharecollect.controllers.HttpRequest;
+import com.example.sharecollect.controllers.ItemAdapter;
 import com.example.sharecollect.controllers.UserController;
+import com.example.sharecollect.models.Item;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,9 +38,10 @@ import java.util.Locale;
 
 /**
  * Activity to create a new item list.
+ *
  * @author Hugo C. and Clement C.
  * @version 1.0
- * @since 2023-03-27
+ * @since 2023 -03-27
  */
 public class ItemCreateActivity extends AppCompatActivity {
 
@@ -99,6 +100,7 @@ public class ItemCreateActivity extends AppCompatActivity {
     /**
      * Click on the button to add a new item and display the popup window
      * to add the item.
+     *
      * @param view The view
      */
     public void addItem(View view){
@@ -114,6 +116,7 @@ public class ItemCreateActivity extends AppCompatActivity {
      * Add the item to the list of items
      * and close the popup window.
      * Refresh the RecyclerView.
+     *
      * @param view The view
      */
     public void addItemPopup(View view){
@@ -127,7 +130,8 @@ public class ItemCreateActivity extends AppCompatActivity {
 
     /**
      * Initialize the adapter with the list of items.
-     * @param recyclerView The RecyclerView
+     *
+     * @param recyclerView  The RecyclerView
      * @param layoutManager The layout manager
      */
     public void initItemList(RecyclerView recyclerView, RecyclerView.LayoutManager layoutManager){
@@ -136,11 +140,21 @@ public class ItemCreateActivity extends AppCompatActivity {
         recyclerView.setAdapter(itemAdapter);
     }
 
+    /**
+     * Valid collection.
+     *
+     * @param view the view
+     */
     public void validCollection(View view) {
-        HttpGetRequest.createCollection(Integer.toString(userController.getUser().getId()), userController.getUser().getToken(), collectionController.getCollection().getTitle(), collectionController.getCollection().getDescription(), itemList);
+        HttpRequest.createCollection(Integer.toString(userController.getUser().getId()), userController.getUser().getToken(), collectionController.getCollection().getTitle(), collectionController.getCollection().getDescription(), itemList);
         finish();
     }
 
+    /**
+     * Take photo.
+     *
+     * @param view the view
+     */
     public void takePhoto(View view) {
 
         File imageFile = null;

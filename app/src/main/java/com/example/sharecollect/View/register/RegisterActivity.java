@@ -27,7 +27,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.sharecollect.R;
 import com.example.sharecollect.View.login.LoginActivity;
-import com.example.sharecollect.controllers.HttpGetRequest;
+import com.example.sharecollect.controllers.HttpRequest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,9 +35,10 @@ import java.util.HashMap;
 
 /**
  * Activity to register a new user
+ *
  * @author Hugo C.
  * @version 1.0
- * @since 2023-03-22
+ * @since 2023 -03-22
  */
 public class RegisterActivity extends AppCompatActivity {
 
@@ -48,6 +49,9 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView tvError;
     private Button btnAddPicture;
 
+    /**
+     * The Profile picture uri.
+     */
     Uri profilePictureURI = null;
 
     @Override
@@ -112,6 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * Allow to go back to the login activity
+     *
      * @param view : view
      */
     public void backToLogin(View view) {
@@ -122,14 +127,16 @@ public class RegisterActivity extends AppCompatActivity {
      * Allow to create a new user
      * If the creation is a success, we redirect to the login activity
      * Otherwise, we display an error message
+     *
      * @param view : view
+     * @throws FileNotFoundException the file not found exception
      */
     public void onClickRegister(View view) throws FileNotFoundException {
         System.out.println("onClickRegister");
 
         if(checkFields()) {
             System.out.println("Fields checked");
-            HashMap<String, Object> response = HttpGetRequest.createUser(etPseudo.getText().toString().trim(),
+            HashMap<String, Object> response = HttpRequest.createUser(etPseudo.getText().toString().trim(),
                     etEmail.getText().toString().trim(),
                     etPassword.getText().toString().trim());
 
@@ -138,10 +145,10 @@ public class RegisterActivity extends AppCompatActivity {
                 System.out.println("User created");
                 if(profilePictureURI != null) {
                     System.out.println("Profile picture not null");
-                    HashMap<String, Object> hashMapWithId = HttpGetRequest.getIdByUsername(etPseudo.getText().toString().trim());
+                    HashMap<String, Object> hashMapWithId = HttpRequest.getIdByUsername(etPseudo.getText().toString().trim());
                     // Retrieve file by URI
                     File profilePicture = getFileFromUri(profilePictureURI);
-                    HttpGetRequest.sendProfilePicture(hashMapWithId.get("id").toString(), profilePicture);
+                    HttpRequest.sendProfilePicture(hashMapWithId.get("id").toString(), profilePicture);
                 }
                 Intent intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
@@ -214,6 +221,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     /**
      * Show/Hide password or confirm password when clicking on the eye icon
+     *
      * @param view : view
      */
     public void showHidePasswordOnClick(View view) {

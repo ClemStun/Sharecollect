@@ -10,9 +10,9 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sharecollect.controllers.HttpGetRequest;
-import com.example.sharecollect.controllers.OnCollectionClickListener;
 import com.example.sharecollect.R;
+import com.example.sharecollect.controllers.HttpRequest;
+import com.example.sharecollect.controllers.OnCollectionClickListener;
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.models.Collection;
 
@@ -22,9 +22,10 @@ import java.util.List;
 
 /**
  * View holder for the collections.
+ *
  * @author Hugo C.
  * @version 1.0
- * @since 2023-03-22
+ * @since 2023 -03-22
  */
 public class CollectionViewHolder extends RecyclerView.ViewHolder {
     private TextView title;
@@ -37,6 +38,13 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
 
     private List<Collection> collectionsList;
 
+    /**
+     * Instantiates a new Collection view holder.
+     *
+     * @param collectionView            the collection view
+     * @param collectionsList           the collections list
+     * @param onCollectionClickListener the on collection click listener
+     */
     public CollectionViewHolder(View collectionView, List<Collection> collectionsList, OnCollectionClickListener onCollectionClickListener) {
         super(collectionView);
         title = collectionView.findViewById(R.id.textViewCollectionTitle);
@@ -55,11 +63,16 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
         });
 
         followButton.setOnClickListener(v -> {
-            HashMap<String, Object> response = HttpGetRequest.addCollectionFollower(collectionsList.get(getAdapterPosition()).getId(), UserController.getInstance().getUser().getId());
+            HashMap<String, Object> response = HttpRequest.addCollectionFollower(collectionsList.get(getAdapterPosition()).getId(), UserController.getInstance().getUser().getId());
             followButton.setVisibility(View.GONE);
         });
     }
 
+    /**
+     * Bind.
+     *
+     * @param collection the collection
+     */
     public void bind(Collection collection) {
         title.setText(collection.getTitle());
         description.setText(collection.getDescription());
@@ -68,7 +81,7 @@ public class CollectionViewHolder extends RecyclerView.ViewHolder {
         }
 
         // print button only if don't follow collection
-        HashMap<String, Object> response = HttpGetRequest.getCollectionFollowers(collection.getId());
+        HashMap<String, Object> response = HttpRequest.getCollectionFollowers(collection.getId());
         HashMap<String, Object> followers = (HashMap<String, Object>) response.get("users");
 
         List<Integer> listFollowers = new ArrayList<Integer>();

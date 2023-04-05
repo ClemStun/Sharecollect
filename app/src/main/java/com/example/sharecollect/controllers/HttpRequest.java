@@ -29,19 +29,21 @@ import retrofit2.Retrofit;
  * That allows to perform an asynchronous HTTP GET request
  * Create URL with different elements given
  * Send the request and retrieve the result
+ *
  * @author Hugo C.
  * @version 1.0
- * @since 2023-03-07
+ * @since 2023 -03-07
  */
-public class HttpGetRequest {
+public class HttpRequest {
 
     private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     /**
      * Allows to create a new user
      * using an asynchronous HTTP GET request
-     * @param pseudo : user's pseudo
-     * @param email : user's email
+     *
+     * @param pseudo   : user's pseudo
+     * @param email    : user's email
      * @param password : user's password
      * @return true if the creation is a success, false otherwise
      */
@@ -65,7 +67,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -85,7 +87,8 @@ public class HttpGetRequest {
     /**
      * Allows to connect to a user account
      * using an asynchronous HTTP GET request
-     * @param pseudo : user's pseudo
+     *
+     * @param pseudo   : user's pseudo
      * @param password : user's password
      * @return true if the connection is a success, false otherwise
      */
@@ -107,7 +110,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -125,7 +128,8 @@ public class HttpGetRequest {
     /**
      * Allows to get a user's information
      * using an asynchronous HTTP GET request
-     * @param id : user's id
+     *
+     * @param id    : user's id
      * @param token : user's token
      * @return String containing the user's information or an error message
      */
@@ -148,7 +152,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -163,6 +167,12 @@ public class HttpGetRequest {
         return response;
     }
 
+    /**
+     * Gets id by username.
+     *
+     * @param username the username
+     * @return the id by username
+     */
     public static HashMap<String, Object> getIdByUsername(String username) {
         String urlString = "http://34.22.199.112/user/getbyusername?username=" +
                 username;
@@ -179,7 +189,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -193,6 +203,11 @@ public class HttpGetRequest {
         return response;
     }
 
+    /**
+     * Gets all collection.
+     *
+     * @return the all collection
+     */
     public static HashMap<String, Object> getAllCollection() {
         String urlString = "http://34.22.199.112/collection";
 
@@ -208,7 +223,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -222,6 +237,7 @@ public class HttpGetRequest {
     /**
      * Allows to get a user's collection list
      * using an asynchronous HTTP GET request
+     *
      * @param idUser : user's id
      * @return String containing the user's collection list or an error message
      */
@@ -242,7 +258,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -260,6 +276,7 @@ public class HttpGetRequest {
     /**
      * Allows to get a collection's information
      * using an asynchronous HTTP GET request
+     *
      * @param id : collection's id
      * @return String containing the collection's information or an error message
      */
@@ -280,7 +297,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -299,11 +316,12 @@ public class HttpGetRequest {
     /**
      * Allows to create a collection
      * using an asynchronous HTTP GET request
-     * @param idUser : user's id
-     * @param token : user's token
-     * @param title : collection's title
+     *
+     * @param idUser      : user's id
+     * @param token       : user's token
+     * @param title       : collection's title
      * @param description : collection's description
-     * @param items : collection's items
+     * @param items       : collection's items
      * @return String containing the collection's information or an error message
      */
     public static HashMap<String, Object> createCollection(String idUser, String token, String title, String description, List<Item> items) {
@@ -333,7 +351,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -347,6 +365,13 @@ public class HttpGetRequest {
         return response;
     }
 
+    /**
+     * Add notif token hash map.
+     *
+     * @param id    the id
+     * @param token the token
+     * @return the hash map
+     */
     public static HashMap<String, Object> addNotifToken(String id, String token) {
         String urlString = "http://34.22.199.112/user/" +
                 id +
@@ -364,7 +389,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -379,6 +404,12 @@ public class HttpGetRequest {
 
     }
 
+    /**
+     * Send notif hash map.
+     *
+     * @param id the id
+     * @return the hash map
+     */
     public static HashMap<String, Object> sendNotif(String id) {
         String urlString = "http://34.22.199.112/user/" +
                 id +
@@ -395,7 +426,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -413,6 +444,7 @@ public class HttpGetRequest {
     /**
      * Allows to get a collection's items
      * using an asynchronous HTTP GET request
+     *
      * @param idCollection : collection's id
      * @return String containing the collection's items or an error message
      */
@@ -433,7 +465,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -447,6 +479,12 @@ public class HttpGetRequest {
         return response;
     }
 
+    /**
+     * Send profile picture.
+     *
+     * @param idUser the id user
+     * @param image  the image
+     */
     public static void sendProfilePicture(String idUser, File image) {
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), image);
@@ -473,6 +511,12 @@ public class HttpGetRequest {
         });
     }
 
+    /**
+     * Send item picture.
+     *
+     * @param idUser the id user
+     * @param image  the image
+     */
     public static void sendItemPicture(String idUser, File image) {
 
         RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), image);
@@ -498,7 +542,13 @@ public class HttpGetRequest {
             }
         });
     }
-    
+
+    /**
+     * Gets profile picture.
+     *
+     * @param idUser the id user
+     * @return the profile picture
+     */
     public static Bitmap getProfilePicture(String idUser) {
 
         String urlString = "http://34.22.199.112/user/" + idUser + "/pp";
@@ -510,13 +560,19 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
         }
 
         return (Bitmap) httpRequestThreadGet.getRequestResult().get("image");
 
     }
 
+    /**
+     * Gets collection followers.
+     *
+     * @param id the id
+     * @return the collection followers
+     */
     public static HashMap<String, Object> getCollectionFollowers(int id) {
         String urlString = "http://34.22.199.112/collection/"
                 + id
@@ -532,7 +588,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 
@@ -546,6 +602,13 @@ public class HttpGetRequest {
         return response;
     }
 
+    /**
+     * Add collection follower
+     *
+     * @param id_collection the id collection
+     * @param id_user       the id user
+     * @return the hash map
+     */
     public static HashMap<String, Object> addCollectionFollower(int id_collection, int id_user) {
         String urlString = "http://34.22.199.112/collection/"
                 + id_collection
@@ -562,7 +625,7 @@ public class HttpGetRequest {
         try {
             future.get(); // Waiting for the thread to end
         } catch (InterruptedException | ExecutionException e) {
-            Logger.getLogger(HttpGetRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
+            Logger.getLogger(HttpRequest.class.getName()).log(Level.SEVERE, "Waiting thread error : ", e);
             response.put("error", "Network error");
         }
 

@@ -11,8 +11,16 @@ import com.example.sharecollect.View.home.HomeFragment;
 import com.example.sharecollect.View.profile.ProfileFragment;
 import com.example.sharecollect.View.search.SearchFragment;
 
+/**
+ * The type View pager adapter.
+ */
 public class ViewPagerAdapter extends FragmentStateAdapter {
 
+    /**
+     * Instantiates a new View pager adapter.
+     *
+     * @param fragmentActivity the fragment activity
+     */
     public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
         super(fragmentActivity);
     }

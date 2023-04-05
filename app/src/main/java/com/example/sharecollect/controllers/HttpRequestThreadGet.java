@@ -22,15 +22,22 @@ import java.util.logging.Logger;
 /**
  * Thread that allows to perform an asynchronous HTTP GET request
  * and to retrieve the result of the request
+ *
  * @author Hugo C.
  * @version 1.0
- * @since 2023-03-07
+ * @since 2023 -03-07
  */
 public class HttpRequestThreadGet implements Runnable {
     private final String urlString;
     private final String responseType;
     private HashMap<String, Object> requestResult;
 
+    /**
+     * Instantiates a new Http request thread get.
+     *
+     * @param urlString    the url string
+     * @param responseType the response type
+     */
     public HttpRequestThreadGet(String urlString, String responseType) {
 
         this.urlString = urlString;
@@ -38,6 +45,11 @@ public class HttpRequestThreadGet implements Runnable {
 
     }
 
+    /**
+     * Gets request result.
+     *
+     * @return the request result
+     */
     public HashMap<String, Object> getRequestResult() {
         return requestResult;
     }

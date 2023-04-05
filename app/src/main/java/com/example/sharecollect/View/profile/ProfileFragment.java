@@ -16,11 +16,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.sharecollect.controllers.HttpGetRequest;
 import com.example.sharecollect.MainActivity;
+import com.example.sharecollect.controllers.HttpRequest;
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.databinding.FragmentProfileBinding;
 
+/**
+ * The type Profile fragment.
+ */
 public class ProfileFragment extends Fragment {
 
         private FragmentProfileBinding binding;
@@ -49,7 +52,7 @@ public class ProfileFragment extends Fragment {
 
     private void makeCircleImage(){
         // Récupérer l'image bitmap
-        Bitmap bitmap = HttpGetRequest.getProfilePicture(Integer.toString(userController.getUser().getId()));
+        Bitmap bitmap = HttpRequest.getProfilePicture(Integer.toString(userController.getUser().getId()));
 
         // Si l'image n'existe pas, on ne fait rien et l'image de base est utilisée
         if(bitmap == null){
@@ -75,6 +78,11 @@ public class ProfileFragment extends Fragment {
         ivAvatar.setImageBitmap(output);
     }
 
+    /**
+     * Gets main activity.
+     *
+     * @return the main activity
+     */
     public MainActivity getMainActivity() {
         return (MainActivity) getActivity();
     }
