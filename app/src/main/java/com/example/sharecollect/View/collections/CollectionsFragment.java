@@ -37,6 +37,7 @@ public class CollectionsFragment extends Fragment implements OnCollectionClickLi
 
     private FragmentCollectionsBinding binding;
     private CollectionAdapter collectionAdapter;
+    RecyclerView.LayoutManager layoutManager;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,7 +58,7 @@ public class CollectionsFragment extends Fragment implements OnCollectionClickLi
         collectionsRecyclerView.setHasFixedSize(true);
 
         // Set the layout manager with root context
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(root.getContext());
+        layoutManager = new LinearLayoutManager(root.getContext());
 
         // Initialize the list of collections in the fragment
         initCollectionList(collectionsRecyclerView, layoutManager);
@@ -68,8 +69,7 @@ public class CollectionsFragment extends Fragment implements OnCollectionClickLi
     @Override
     public void onResume() {
         super.onResume();
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        initCollectionList(binding.collectionsRecyclerView, layoutManager);
+        reloadCollectionList(binding.collectionsRecyclerView, layoutManager);
     }
 
     private void setOnclickListeners(View root) {
@@ -159,6 +159,37 @@ public class CollectionsFragment extends Fragment implements OnCollectionClickLi
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         itemTouchHelper.attachToRecyclerView(collectionsRecyclerView);
+    }
+
+    /**
+     * Allows to reload the list of collections in the fragment
+     * @param collectionsRecyclerView : RecyclerView of the fragment
+     * @param layoutManager : LayoutManager of the fragment
+     */
+    private void reloadCollectionList(RecyclerView collectionsRecyclerView, RecyclerView.LayoutManager layoutManager){
+        HashMap<String, Object> response = HttpRequest.getCollectionList(Integer.toString(UserController.getInstance().getUser().getId()));
+
+        List<Collection> collectionsList = new ArrayList<>();
+        HashMap<String, Object> collections = (HashMap<String, Object>) response.get("collection_id");
+
+        if(collections == null) {
+            collections = new HashMap<>();
+        }
+        else {
+            // For each collection, get the information and add it to the list
+            for (int i = 0; i < collections.size(); i++) {
+                HashMap<String, Object> collection = (HashMap<String, Object>) collections.get(String.valueOf(i));
+                assert collection != null;
+                HashMap<String, Object> collectionInfo = HttpRequest.getCollectionInformation((String) collection.get("collection_id"));
+                collectionsList.add(new Collection(Integer.parseInt((String) collection.get("collection_id")), Integer.parseInt((String) collectionInfo.get("owner")), (String) collectionInfo.get("title"), (String) collectionInfo.get("description")));
+            }
+        }
+
+        // Fill collectionAdapter with the list of collections
+        collectionAdapter = new CollectionAdapter(collectionsList, this);
+
+        collectionsRecyclerView.setLayoutManager(layoutManager);
+        collectionsRecyclerView.setAdapter(collectionAdapter);
     }
 
     @Override

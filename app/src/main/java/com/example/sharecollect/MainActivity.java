@@ -65,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager2.setCurrentItem(0);
 
-        // recover id and token from the login activity
-        Bundle extras = getIntent().getExtras();
-
         // Initialiser Firebase
         FirebaseApp.initializeApp(this);
 
