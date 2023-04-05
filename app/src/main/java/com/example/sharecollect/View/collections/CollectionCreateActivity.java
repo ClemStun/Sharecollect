@@ -1,11 +1,11 @@
 package com.example.sharecollect.View.collections;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sharecollect.R;
 import com.example.sharecollect.controllers.CollectionController;
@@ -14,9 +14,10 @@ import com.example.sharecollect.models.Collection;
 
 /**
  * Activity to create a new collection.
+ *
  * @author Hugo C. and Clement C.
  * @version 1.0
- * @since 2023-03-27
+ * @since 2023 -03-27
  */
 public class CollectionCreateActivity extends AppCompatActivity {
 
@@ -34,6 +35,7 @@ public class CollectionCreateActivity extends AppCompatActivity {
 
     /**
      * Create a new collection and go to the item creation activity.
+     *
      * @param view The view
      */
     public void fillCollectionWithItem(View view) {
@@ -50,6 +52,7 @@ public class CollectionCreateActivity extends AppCompatActivity {
 
     /**
      * Go back to the collections activity.
+     *
      * @param view The view
      */
     public void backToCollections(View view) {

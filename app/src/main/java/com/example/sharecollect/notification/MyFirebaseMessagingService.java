@@ -10,9 +10,15 @@ import com.example.sharecollect.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+/**
+ * The type My firebase messaging service.
+ */
 public class MyFirebaseMessagingService extends FirebaseMessagingService{
 
     private static final String TAG = "MyFirebaseMessagingService";
+    /**
+     * The constant notificationToken.
+     */
     public static String notificationToken = "";
 
     @Override

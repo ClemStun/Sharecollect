@@ -4,6 +4,9 @@ import com.example.sharecollect.models.User;
 
 import java.io.Serializable;
 
+/**
+ * The type User controller.
+ */
 public class UserController implements Serializable {
 
     private static UserController instance;
@@ -14,6 +17,11 @@ public class UserController implements Serializable {
         user = null;
     }
 
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
     public static UserController getInstance() {
         if (instance == null) {
             instance = new UserController();
@@ -23,12 +31,22 @@ public class UserController implements Serializable {
 
     /* GETTERS */
 
+    /**
+     * Gets user.
+     *
+     * @return the user
+     */
     public User getUser() {
         return user;
     }
 
     /* SETTERS */
 
+    /**
+     * Sets user.
+     *
+     * @param user the user
+     */
     public void setUser(User user) {
         this.user = user;
     }

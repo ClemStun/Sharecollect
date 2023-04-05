@@ -7,22 +7,21 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.sharecollect.controllers.HttpGetRequest;
+import com.example.sharecollect.controllers.HttpRequest;
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.controllers.ViewPagerAdapter;
 import com.example.sharecollect.databinding.ActivityMainBinding;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import retrofit2.http.HTTP;
-
 /**
  * Main activity of the application
  * It contains the navigation bar and the fragments
  * It also contains the id and token of the user
+ *
  * @author Hugo C. and Clement C.
  * @version 1.0
- * @since 2023-03-22
+ * @since 2023 -03-22
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -86,11 +85,11 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        HttpGetRequest.sendNotif("10");
+        HttpRequest.sendNotif("10");
     }
     private void sendNotifToken(String token){
 
-        HttpGetRequest.addNotifToken(Integer.toString(userController.getUser().getId()), token);
+        HttpRequest.addNotifToken(Integer.toString(userController.getUser().getId()), token);
 
     }
 }

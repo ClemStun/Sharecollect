@@ -1,7 +1,5 @@
 package com.example.sharecollect.View.login;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +10,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.sharecollect.MainActivity;
 import com.example.sharecollect.R;
 import com.example.sharecollect.View.register.RegisterActivity;
-import com.example.sharecollect.controllers.HttpGetRequest;
+import com.example.sharecollect.controllers.HttpRequest;
 import com.example.sharecollect.controllers.UserController;
 import com.example.sharecollect.models.User;
 
@@ -23,9 +23,10 @@ import java.util.HashMap;
 
 /**
  * Activity to login a user
+ *
  * @author Hugo C.
  * @version 1.0
- * @since 2023-03-22
+ * @since 2023 -03-22
  */
 public class LoginActivity extends AppCompatActivity {
 
@@ -63,12 +64,13 @@ public class LoginActivity extends AppCompatActivity {
      * Allow to connect a user
      * If the connection is a success, we redirect to the main activity
      * Otherwise, we display an error message
+     *
      * @param view : view
      */
     public void onClickLogin(View view){
 
         if(checkFields()){
-            HashMap<String, Object> response = HttpGetRequest.connectUser(etPseudo.getText().toString().trim(),
+            HashMap<String, Object> response = HttpRequest.connectUser(etPseudo.getText().toString().trim(),
                     etPassword.getText().toString().trim());
 
             if(response.get("error").equals(getString(R.string.user_not_found))) {
@@ -95,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Allow to go to the register activity
+     *
      * @param view : view
      */
     public void onClickRegister(View view){
@@ -126,6 +129,7 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * Show/Hide password when clicking on the eye icon
+     *
      * @param view : view
      */
     public void showHidePasswordOnClick(View view) {

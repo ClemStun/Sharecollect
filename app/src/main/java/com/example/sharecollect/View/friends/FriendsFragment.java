@@ -11,6 +11,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.sharecollect.databinding.FragmentFriendsBinding;
 
+/**
+ * The type Friends fragment.
+ */
 public class FriendsFragment extends Fragment {
 
     private FragmentFriendsBinding binding;

@@ -11,16 +11,19 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.sharecollect.models.Collection;
 import com.example.sharecollect.controllers.CollectionAdapter;
-import com.example.sharecollect.controllers.HttpGetRequest;
+import com.example.sharecollect.controllers.HttpRequest;
 import com.example.sharecollect.controllers.OnCollectionClickListener;
 import com.example.sharecollect.databinding.FragmentSearchBinding;
+import com.example.sharecollect.models.Collection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The type Search fragment.
+ */
 public class SearchFragment extends Fragment implements OnCollectionClickListener {
 
     private FragmentSearchBinding binding;
@@ -52,7 +55,7 @@ public class SearchFragment extends Fragment implements OnCollectionClickListene
     }
 
     private void initCollectionList(RecyclerView collectionsRecyclerView, RecyclerView.LayoutManager layoutManager) {
-        HashMap<String, Object> response = HttpGetRequest.getAllCollection();
+        HashMap<String, Object> response = HttpRequest.getAllCollection();
 
         List<Collection> collectionsList = new ArrayList<>();
         HashMap<String, Object> collections = (HashMap<String, Object>) response.get("collections");
